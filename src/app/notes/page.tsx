@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
-import { Upload, Image as ImageIcon, Trash2, Camera, X, Loader2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Camera, X, Loader2 } from 'lucide-react';
 import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
@@ -24,7 +24,7 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 import { getNotes, type Note } from '@/lib/firebase';
-import { addNoteAction, deleteNoteAction } from '@/app/actions';
+import { addNoteAction } from '@/app/actions';
 import { useFormStatus } from 'react-dom';
 
 function UploadButton() {
@@ -151,16 +151,6 @@ export default function NotesPage() {
       }
     }
   };
-
-  const removeNote = async (note: Note) => {
-    const res = await deleteNoteAction(note);
-    if(res.success) {
-        setNotes((prev) => prev.filter((n) => n.id !== note.id));
-        toast({ title: 'Note deleted.' });
-    } else {
-        toast({ variant: 'destructive', title: 'Deletion failed', description: res.error });
-    }
-  };
   
   const openNote = (previewUrl: string) => setSelectedNote(previewUrl);
   const closeNote = () => setSelectedNote(null);
@@ -261,12 +251,6 @@ export default function NotesPage() {
                           height={200}
                           className="rounded-md object-cover aspect-video"
                         />
-                    </div>
-                    <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                       <Button variant="destructive" size="icon" onClick={(e) => { e.stopPropagation(); removeNote(note); }}>
-                           <Trash2 className="h-4 w-4" />
-                           <span className="sr-only">Remove Note</span>
-                       </Button>
                     </div>
                   </div>
                 ))}

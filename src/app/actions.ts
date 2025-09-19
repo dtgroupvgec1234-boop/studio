@@ -2,7 +2,7 @@
 
 import { identifyImportantQuestions } from '@/ai/flows/important-questions-identifier';
 import { summarizeNotes } from '@/ai/flows/notes-summarizer';
-import { addBook, uploadFile, addNote, deleteNote as deleteNoteFromDb, type Note } from '@/lib/firebase';
+import { addBook, uploadFile, addNote, type Note } from '@/lib/firebase';
 import type { BookResource } from '@/lib/data';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
@@ -194,18 +194,6 @@ export async function addNoteAction(prevState: AddNoteState, formData: FormData)
     } catch(e) {
         const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
         console.error('Error adding note:', errorMessage);
-        return { success: false, error: errorMessage };
-    }
-}
-
-export async function deleteNoteAction(note: Note) {
-    try {
-        await deleteNoteFromDb(note);
-        revalidatePath('/notes');
-        return { success: true }
-    } catch(e) {
-        const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
-        console.error('Error deleting note:', errorMessage);
         return { success: false, error: errorMessage };
     }
 }

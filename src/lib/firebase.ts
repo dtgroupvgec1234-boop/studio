@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { BookResource } from "./data";
 
 
@@ -77,13 +77,4 @@ export async function getNotes(): Promise<Note[]> {
         notes.push({ id: doc.id, ...doc.data() } as Note);
     });
     return notes.sort((a, b) => b.createdAt - a.createdAt);
-}
-
-export async function deleteNote(note: Note): Promise<void> {
-    // Delete the file from storage
-    const fileRef = ref(storage, note.storagePath);
-    await deleteObject(fileRef);
-
-    // Delete the document from firestore
-    await deleteDoc(doc(db, "notes", note.id));
 }

@@ -4,7 +4,6 @@ import { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { summarizeNotesAction, type NotesSummarizerState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import {
   Card,
   CardContent,
@@ -14,7 +13,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { FileText, Loader2, Sparkles } from 'lucide-react';
+import { FileText, Loader2, Sparkles, Upload } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 const initialState: NotesSummarizerState = {};
 
@@ -45,7 +46,7 @@ export default function NotesSummarizerPage() {
           Notes Summarizer
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Paste your notes to get a concise AI-generated summary.
+          Upload an image of your notes to get a concise AI-generated summary.
         </p>
       </header>
 
@@ -53,18 +54,22 @@ export default function NotesSummarizerPage() {
         <form action={formAction}>
           <Card>
             <CardHeader>
-              <CardTitle>Upload Images</CardTitle>
+              <CardTitle>Upload Image</CardTitle>
               <CardDescription>
-                Paste your lecture notes, textbook chapters, or any study material below.
+                Select an image file of your notes.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Textarea
-                name="notes"
-                placeholder="Start typing or paste your text here..."
-                className="min-h-[300px] text-base"
-                defaultValue={state.input}
-              />
+              <div className="flex flex-col items-center justify-center space-y-4 rounded-md border-2 border-dashed border-border p-8 text-center">
+                <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                    <Upload className="h-12 w-12" />
+                    <Label htmlFor="file-upload" className="cursor-pointer font-semibold text-primary hover:underline">
+                        Choose file
+                    </Label>
+                    <p className="text-sm">or drag and drop</p>
+                </div>
+                <Input id="file-upload" name="notesImage" type="file" className="sr-only" accept="image/*" />
+             </div>
                {state.error && (
                 <p className="text-sm font-medium text-destructive mt-2">{state.error}</p>
               )}

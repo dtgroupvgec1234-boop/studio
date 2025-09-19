@@ -7,35 +7,56 @@ import { z } from 'zod';
 export type NotesSummarizerState = {
   summary?: string;
   error?: string;
-  input?: string;
+  input?: string | File;
 };
 
 const notesSchema = z.object({
-  notes: z.string().min(10, 'Please enter at least 10 characters of notes to summarize.'),
+  notesImage: z
+    .instanceof(File)
+    .refine((file) => file.size > 0, { message: 'Please upload an image.' })
+    .refine((file) => file.type.startsWith('image/'), {
+      message: 'Only image files are accepted.',
+    }),
 });
+
+function toDataURI(buffer: ArrayBuffer, type: string) {
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  let binary = '';
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return `data:${type};base64,${btoa(binary)}`;
+}
+
 
 export async function summarizeNotesAction(
   prevState: NotesSummarizerState,
   formData: FormData
 ): Promise<NotesSummarizerState> {
   const validatedFields = notesSchema.safeParse({
-    notes: formData.get('notes'),
+    notesImage: formData.get('notesImage'),
   });
 
   if (!validatedFields.success) {
     return {
-      error: validatedFields.error.flatten().fieldErrors.notes?.join(', '),
-      input: formData.get('notes') as string,
+      error: validatedFields.error.flatten().fieldErrors.notesImage?.join(', '),
+      input: formData.get('notesImage') as File,
     };
   }
+  
+  const imageFile = validatedFields.data.notesImage;
 
   try {
-    const result = await summarizeNotes({ notes: validatedFields.data.notes });
-    return { summary: result.summary, input: validatedFields.data.notes };
+    const imageBuffer = await imageFile.arrayBuffer();
+    const imageDataUri = toDataURI(imageBuffer, imageFile.type);
+
+    const result = await summarizeNotes({ notes: imageDataUri });
+    return { summary: result.summary, input: validatedFields.data.notesImage };
   } catch (e) {
     return {
       error: e instanceof Error ? e.message : 'An unknown error occurred.',
-      input: validatedFields.data.notes,
+      input: validatedFields.data.notesImage,
     };
   }
 }

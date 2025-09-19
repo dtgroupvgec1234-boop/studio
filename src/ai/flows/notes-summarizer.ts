@@ -14,7 +14,9 @@ import {z} from 'genkit';
 const SummarizeNotesInputSchema = z.object({
   notes: z
     .string()
-    .describe('The notes to be summarized. Can be lecture notes, textbook chapters, or online resources.'),
+    .describe(
+      "An image of notes as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ),
 });
 export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 
@@ -31,11 +33,11 @@ const prompt = ai.definePrompt({
   name: 'summarizeNotesPrompt',
   input: {schema: SummarizeNotesInputSchema},
   output: {schema: SummarizeNotesOutputSchema},
-  prompt: `You are an expert summarizer, able to create concise summaries of provided notes.
+  prompt: `You are an expert summarizer, able to create concise summaries of provided notes from an image.
 
-  Please provide a concise summary of the following notes:
+  Please provide a concise summary of the notes in the following image:
 
-  Notes: {{{notes}}}`,
+  Notes: {{media url=notes}}`,
 });
 
 const summarizeNotesFlow = ai.defineFlow(

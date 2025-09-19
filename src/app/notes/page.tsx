@@ -12,14 +12,22 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
-import { Upload, Image as ImageIcon, Trash2, Camera } from 'lucide-react';
+import { Upload, Image as ImageIcon, Trash2, Camera, X } from 'lucide-react';
 import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from '@/components/ui/dialog';
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<{ file: File; preview: string }[]>([]);
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
+  const [selectedNote, setSelectedNote] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -90,6 +98,14 @@ export default function NotesPage() {
   const removeNote = (index: number) => {
     setNotes((prev) => prev.filter((_, i) => i !== index));
   };
+  
+  const openNote = (previewUrl: string) => {
+    setSelectedNote(previewUrl);
+  };
+
+  const closeNote = () => {
+    setSelectedNote(null);
+  }
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
@@ -153,14 +169,14 @@ export default function NotesPage() {
           <CardHeader>
             <CardTitle>Uploaded Notes</CardTitle>
             <CardDescription>
-              A preview of your uploaded notes.
+              A preview of your uploaded notes. Click to view.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {notes.length > 0 ? (
               <div className="grid grid-cols-2 gap-4">
                 {notes.map((note, index) => (
-                  <div key={index} className="relative group">
+                  <div key={index} className="relative group cursor-pointer" onClick={() => openNote(note.preview)}>
                     <Image
                       src={note.preview}
                       alt={`Note preview ${index + 1}`}
@@ -170,7 +186,7 @@ export default function NotesPage() {
                       className="rounded-md object-cover aspect-video"
                     />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                       <Button variant="destructive" size="icon" onClick={() => removeNote(index)}>
+                       <Button variant="destructive" size="icon" onClick={(e) => { e.stopPropagation(); removeNote(index); }}>
                            <Trash2 className="h-4 w-4" />
                            <span className="sr-only">Remove Note</span>
                        </Button>
@@ -189,6 +205,24 @@ export default function NotesPage() {
           </CardContent>
         </Card>
       </div>
+
+       <Dialog open={!!selectedNote} onOpenChange={(isOpen) => !isOpen && closeNote()}>
+        <DialogContent className="max-w-4xl h-[90vh]">
+          <DialogHeader>
+            <DialogTitle>Note Preview</DialogTitle>
+             <DialogClose asChild>
+                <Button variant="ghost" size="icon" className="absolute right-4 top-4">
+                  <X className="h-4 w-4" />
+                </Button>
+              </DialogClose>
+          </DialogHeader>
+          {selectedNote && (
+            <div className="relative w-full h-full">
+              <Image src={selectedNote} alt="Selected note" layout="fill" objectFit="contain" />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

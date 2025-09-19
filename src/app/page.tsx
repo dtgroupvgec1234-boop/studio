@@ -109,31 +109,34 @@ export default function Home() {
               {features.map((feature) => {
                 const image = getImage(feature.imageId);
                 return (
-                  <Link href={feature.href} key={feature.title}>
-                    <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-start justify-between">
-                          {feature.icon}
-                           <ChevronRight className="size-5 text-muted-foreground" />
+                  <Card
+                    as={Link}
+                    href={feature.href}
+                    key={feature.title}
+                    className="flex flex-col h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between">
+                        {feature.icon}
+                        <ChevronRight className="size-5 text-muted-foreground" />
+                      </div>
+                      {image && (
+                        <div className="relative aspect-video mt-4 rounded-md overflow-hidden">
+                          <Image
+                            src={image.imageUrl}
+                            alt={image.description}
+                            fill
+                            className="object-cover"
+                            data-ai-hint={image.imageHint}
+                          />
                         </div>
-                         {image && (
-                          <div className="relative aspect-video mt-4 rounded-md overflow-hidden">
-                            <Image
-                              src={image.imageUrl}
-                              alt={image.description}
-                              fill
-                              className="object-cover"
-                              data-ai-hint={image.imageHint}
-                            />
-                          </div>
-                        )}
-                      </CardHeader>
-                      <CardContent className="flex-grow">
-                        <CardTitle className="text-xl font-headline">{feature.title}</CardTitle>
-                        <CardDescription className="mt-2">{feature.description}</CardDescription>
-                      </CardContent>
-                    </Card>
-                  </Link>
+                      )}
+                    </CardHeader>
+                    <CardContent className="flex-grow">
+                      <CardTitle className="text-xl font-headline">{feature.title}</CardTitle>
+                      <CardDescription className="mt-2">{feature.description}</CardDescription>
+                    </CardContent>
+                  </Card>
                 );
               })}
             </div>

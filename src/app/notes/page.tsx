@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect, ChangeEvent } from 'react';
+import { useEffect, useRef, useActionState, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -23,11 +23,48 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
+import { addNoteAction } from '@/app/actions';
+import { useFormStatus } from 'react-dom';
+import type { Note } from '@/lib/firebase';
+import { getNotes } from '@/lib/firebase';
 
-type Note = {
-  id: string;
-  imageUrl: string;
-};
+function UploadSubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+      <Button type="submit" disabled={pending}>
+        {pending ? (
+          <>
+            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            Uploading...
+          </>
+        ) : (
+          <>
+            <Upload className="mr-2 h-4 w-4" />
+            Upload
+          </>
+        )}
+      </Button>
+    );
+}
+
+function CaptureSubmitButton({ onCapture }: { onCapture: () => void }) {
+    const { pending } = useFormStatus();
+    return (
+        <Button onClick={onCapture} disabled={pending}>
+            {pending ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Capturing...
+                </>
+            ) : (
+                <>
+                    <Camera className="mr-2 h-4 w-4" />
+                    Capture Image
+                </>
+            )}
+        </Button>
+    );
+}
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -37,9 +74,33 @@ export default function NotesPage() {
   const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isCapturing, setIsCapturing] = useState(false);
+
+  const [uploadFormState, uploadFormAction, isUploadPending] = useActionState(addNoteAction, { success: false });
+  const [captureFormState, captureFormAction, isCapturePending] = useActionState(addNoteAction, { success: false });
+  const uploadFormRef = useRef<HTMLFormElement>(null);
+  const captureFormRef = useRef<HTMLFormElement>(null);
+  
+  useEffect(() => {
+    async function fetchNotes() {
+        const notes = await getNotes();
+        setNotes(notes);
+    }
+    fetchNotes();
+  }, []);
+
+  useEffect(() => {
+    const formState = uploadFormState.success ? uploadFormState : captureFormState;
+    if (formState.success) {
+      toast({ title: 'Note uploaded!' });
+      uploadFormRef.current?.reset();
+      captureFormRef.current?.reset();
+      // Re-fetch notes
+      getNotes().then(setNotes);
+    } else if (formState.error) {
+      toast({ variant: 'destructive', title: 'Upload failed', description: formState.error });
+    }
+  }, [uploadFormState, captureFormState]);
+
 
   useEffect(() => {
     const getCameraPermission = async () => {
@@ -66,31 +127,8 @@ export default function NotesPage() {
     }
   }, []);
 
-  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setIsUploading(true);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newNote: Note = {
-          id: Date.now().toString(),
-          imageUrl: reader.result as string,
-        };
-        setNotes((prevNotes) => [newNote, ...prevNotes]);
-        toast({ title: 'Note uploaded!' });
-        setIsUploading(false);
-      };
-      reader.onerror = () => {
-        toast({ variant: 'destructive', title: 'Upload failed' });
-        setIsUploading(false);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleCapture = () => {
-    if (videoRef.current && canvasRef.current) {
-      setIsCapturing(true);
+    if (videoRef.current && canvasRef.current && captureFormRef.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
       
@@ -99,16 +137,19 @@ export default function NotesPage() {
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        const imageUrl = canvas.toDataURL('image/png');
-        const newNote: Note = {
-          id: Date.now().toString(),
-          imageUrl: imageUrl,
-        };
-        setNotes((prevNotes) => [newNote, ...prevNotes]);
-        toast({ title: 'Note captured!' });
-        setIsCapturing(false);
-      } else {
-        setIsCapturing(false);
+        canvas.toBlob( (blob) => {
+            if (blob && captureFormRef.current) {
+                const form = captureFormRef.current;
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(new File([blob], 'capture.png', { type: 'image/png' }));
+
+                const noteFileInput = form.elements.namedItem('noteFile') as HTMLInputElement;
+                if(noteFileInput) {
+                    noteFileInput.files = dataTransfer.files;
+                    captureFormRef.current.requestSubmit();
+                }
+            }
+          }, 'image/png');
       }
     }
   };
@@ -123,7 +164,7 @@ export default function NotesPage() {
           Your Notes
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Upload or capture images of your notes. Notes are saved on this device only.
+          Upload or capture images of your notes.
         </p>
       </header>
       <div className="grid gap-8 md:grid-cols-2">
@@ -135,38 +176,32 @@ export default function NotesPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-lg">Upload from Device</CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="flex flex-col items-center justify-center space-y-4 rounded-md border-2 border-dashed border-border p-8 text-center">
-                        <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                            <Upload className="h-12 w-12" />
-                            <Label htmlFor="file-upload" className="cursor-pointer font-semibold text-primary hover:underline">
-                                Choose files
-                            </Label>
-                            <p className="text-sm">or drag and drop</p>
+            <form ref={uploadFormRef} action={uploadFormAction}>
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-lg">Upload from Device</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-col items-center justify-center space-y-4 rounded-md border-2 border-dashed border-border p-8 text-center">
+                            <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                                <Upload className="h-12 w-12" />
+                                <Label htmlFor="file-upload" className="cursor-pointer font-semibold text-primary hover:underline">
+                                    Choose file
+                                </Label>
+                                <p className="text-sm">or drag and drop</p>
+                            </div>
+                            <Input id="file-upload" name="noteFile" type="file" className="sr-only" accept="image/*" disabled={isUploadPending} />
                         </div>
-                        <Input id="file-upload" name="noteFile" type="file" className="sr-only" accept="image/*" onChange={handleFileUpload} disabled={isUploading}/>
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Button onClick={() => fileInputRef.current?.click()} disabled={isUploading}>
-                        {isUploading ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Uploading...
-                            </>
-                        ) : (
-                            <>
-                                <Upload className="mr-2 h-4 w-4" />
-                                Upload
-                            </>
-                        )}
-                    </Button>
-                </CardFooter>
-            </Card>
+                         {uploadFormState?.error && <p className="text-sm font-medium text-destructive mt-2">{uploadFormState.error}</p>}
+                    </CardContent>
+                    <CardFooter>
+                       <UploadSubmitButton />
+                    </CardFooter>
+                </Card>
+            </form>
+             <form ref={captureFormRef} action={captureFormAction} className="hidden">
+                 <Input name="noteFile" type="file" className="sr-only" />
+            </form>
             <Card>
                 <CardHeader>
                 <CardTitle className="text-lg">Camera Capture</CardTitle>
@@ -186,21 +221,10 @@ export default function NotesPage() {
                             </div>
                     )}
                 </div>
+                 {captureFormState?.error && <p className="text-sm font-medium text-destructive mt-2">{captureFormState.error}</p>}
                 </CardContent>
                 <CardFooter>
-                    <Button onClick={handleCapture} disabled={isCapturing || hasCameraPermission !== true}>
-                        {isCapturing ? (
-                            <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Capturing...
-                            </>
-                        ) : (
-                            <>
-                                <Camera className="mr-2 h-4 w-4" />
-                                Capture Image
-                            </>
-                        )}
-                    </Button>
+                    <CaptureSubmitButton onCapture={handleCapture} />
                 </CardFooter>
             </Card>
           </CardContent>

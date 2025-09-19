@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import type { BookResource } from "./data";
 
@@ -45,4 +45,37 @@ export async function uploadFile(file: File, path: string): Promise<{ downloadUr
     const snapshot = await uploadBytes(storageRef, file);
     const downloadUrl = await getDownloadURL(snapshot.ref);
     return { downloadUrl, fullPath: snapshot.ref.fullPath };
+}
+
+// Notes related functions
+export type Note = {
+    id: string;
+    imageUrl: string;
+    createdAt: Date;
+}
+
+export type NewNote = {
+    imageUrl: string;
+    createdAt: Date;
+}
+
+const notesCollection = collection(db, 'notes');
+
+export async function addNote(note: { imageUrl: string; createdAt: Date }) {
+    await addDoc(notesCollection, { ...note, createdAt: serverTimestamp() });
+}
+
+export async function getNotes(): Promise<Note[]> {
+    const q = query(notesCollection, orderBy('createdAt', 'desc'));
+    const querySnapshot = await getDocs(q);
+    const notes: Note[] = [];
+    querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        notes.push({ 
+            id: doc.id,
+            imageUrl: data.imageUrl,
+            createdAt: data.createdAt.toDate(),
+        } as Note);
+    });
+    return notes;
 }

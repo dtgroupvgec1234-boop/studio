@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react';
 import { identifyImportantQuestionsAction, type ImportantQuestionsState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -35,7 +35,7 @@ function SubmitButton() {
 }
 
 export default function ImportantQuestionsPage() {
-  const [state, formAction] = useFormState(identifyImportantQuestionsAction, initialState);
+  const [state, formAction] = useActionState(identifyImportantQuestionsAction, initialState);
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">

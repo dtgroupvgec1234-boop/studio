@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react';
 import { summarizeNotesAction, type NotesSummarizerState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -35,7 +35,7 @@ function SubmitButton() {
 }
 
 export default function NotesSummarizerPage() {
-  const [state, formAction] = useFormState(summarizeNotesAction, initialState);
+  const [state, formAction] = useActionState(summarizeNotesAction, initialState);
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">

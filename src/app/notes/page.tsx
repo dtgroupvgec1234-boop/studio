@@ -15,6 +15,7 @@ import { toast } from '@/hooks/use-toast';
 import { Upload, Image as ImageIcon, Trash2, Camera } from 'lucide-react';
 import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Label } from '@/components/ui/label';
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<{ file: File; preview: string }[]>([]);

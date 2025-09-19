@@ -50,7 +50,7 @@ const features = [
     imageId: 'notes',
   },
   {
-    title: 'GTU Old Papers',
+    title: 'GTU',
     description: 'Access previous year question papers from GTU.',
     href: '/gtu-papers',
     icon: <ClipboardList className="size-8 text-primary" />,

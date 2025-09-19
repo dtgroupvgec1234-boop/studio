@@ -21,7 +21,7 @@
     {
       "id": "notes",
       "description": "A person writing in a notebook",
-      "imageUrl": "https://images.unsplash.com/photo-1517842645767-c639042777db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxOb3Rlc3xlbnwwfHx8fDE3NTgyNzU0NDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1517842645767-c639042777db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxOb3Rlc3xlbnwwfHx8fDE3NTgyNzU0NDl8MA&ixlib  .rb-4.1.0&q=80&w=1080",
       "imageHint": "writing notes"
     },
     {
@@ -33,13 +33,13 @@
     {
       "id": "questions",
       "description": "A lightbulb over a book, representing important questions",
-      "imageUrl": "https://picsum.photos/seed/questions/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1687529699742-a7e97c518dca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8JTIwaW1wb3J0YW50JTIwcXVlc3Rpb258ZW58MHx8fHwxNzU4Mjc2MDg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "idea lightbulb"
     },
     {
       "id": "timetable",
       "description": "A calendar with marked dates, representing a study timetable",
-      "imageUrl": "https://picsum.photos/seed/timetable/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1533749047139-189de3cf06d3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxUaW1lfGVufDB8fHx8MTc1ODI3NjExNHww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "calendar schedule"
     },
     {

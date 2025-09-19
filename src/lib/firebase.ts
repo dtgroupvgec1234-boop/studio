@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import type { BookResource } from "./data";
 
 
@@ -21,6 +21,14 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 const booksCollection = collection(db, 'books');
+const notesCollection = collection(db, 'notes');
+
+export type Note = {
+    id: string;
+    imageUrl: string;
+    storagePath: string;
+    createdAt: number;
+}
 
 export async function addBook(book: Omit<BookResource, 'id'>): Promise<BookResource> {
     const docRef = await addDoc(booksCollection, book);
@@ -39,12 +47,43 @@ export async function getBooks(): Promise<BookResource[]> {
     return books;
 }
 
-export async function uploadBookPdf(file: File): Promise<string> {
-    const storageRef = ref(storage, `books/${Date.now()}-${file.name}`);
-    await uploadBytes(storageRef, file);
-    const downloadUrl = await getDownloadURL(storageRef);
-    return downloadUrl;
+export async function uploadFile(file: File, path: string): Promise<{ downloadUrl: string, fullPath: string }> {
+    const storageRef = ref(storage, `${path}/${Date.now()}-${file.name}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    const downloadUrl = await getDownloadURL(snapshot.ref);
+    return { downloadUrl, fullPath: snapshot.ref.fullPath };
 }
 
 
-export { app, db, storage };
+export async function addNote(imageUrl: string, storagePath: string): Promise<Note> {
+    const docRef = await addDoc(notesCollection, {
+        imageUrl,
+        storagePath,
+        createdAt: Date.now(),
+    });
+
+    return {
+        id: docRef.id,
+        imageUrl,
+        storagePath,
+        createdAt: Date.now(),
+    };
+}
+
+export async function getNotes(): Promise<Note[]> {
+    const querySnapshot = await getDocs(notesCollection);
+    const notes: Note[] = [];
+    querySnapshot.forEach((doc) => {
+        notes.push({ id: doc.id, ...doc.data() } as Note);
+    });
+    return notes.sort((a, b) => b.createdAt - a.createdAt);
+}
+
+export async function deleteNote(note: Note): Promise<void> {
+    // Delete the file from storage
+    const fileRef = ref(storage, note.storagePath);
+    await deleteObject(fileRef);
+
+    // Delete the document from firestore
+    await deleteDoc(doc(db, "notes", note.id));
+}

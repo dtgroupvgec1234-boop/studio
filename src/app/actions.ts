@@ -2,7 +2,7 @@
 
 import { identifyImportantQuestions } from '@/ai/flows/important-questions-identifier';
 import { summarizeNotes } from '@/ai/flows/notes-summarizer';
-import { addBook, uploadBookPdf } from '@/lib/firebase';
+import { addBook, uploadFile, addNote, deleteNote as deleteNoteFromDb, type Note } from '@/lib/firebase';
 import type { BookResource } from '@/lib/data';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
@@ -135,7 +135,8 @@ export async function addBookAction(prevState: AddBookState, formData: FormData)
     try {
         let pdfUrl: string | undefined = undefined;
         if (pdfFile && pdfFile.size > 0) {
-            pdfUrl = await uploadBookPdf(pdfFile);
+            const { downloadUrl } = await uploadFile(pdfFile, 'books');
+            pdfUrl = downloadUrl;
         }
 
         const newBook: Omit<BookResource, 'id'> = {
@@ -153,6 +154,58 @@ export async function addBookAction(prevState: AddBookState, formData: FormData)
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
         console.error('Error adding book:', errorMessage);
+        return { success: false, error: errorMessage };
+    }
+}
+
+
+export type AddNoteState = {
+    success: boolean;
+    error?: string;
+};
+
+const addNoteSchema = z.object({
+  noteFile: z
+    .instanceof(File)
+    .refine((file) => file.size > 0, { message: 'Please upload an image.' })
+    .refine((file) => file.type.startsWith('image/'), {
+      message: 'Only image files are accepted.',
+    }),
+});
+
+export async function addNoteAction(prevState: AddNoteState, formData: FormData): Promise<AddNoteState> {
+    const validatedFields = addNoteSchema.safeParse({
+        noteFile: formData.get('noteFile'),
+    });
+
+    if (!validatedFields.success) {
+        return {
+            success: false,
+            error: Object.values(validatedFields.error.flatten().fieldErrors).flat().join(', '),
+        };
+    }
+
+    try {
+        const { noteFile } = validatedFields.data;
+        const { downloadUrl, fullPath } = await uploadFile(noteFile, 'notes');
+        await addNote(downloadUrl, fullPath);
+        revalidatePath('/notes');
+        return { success: true };
+    } catch(e) {
+        const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+        console.error('Error adding note:', errorMessage);
+        return { success: false, error: errorMessage };
+    }
+}
+
+export async function deleteNoteAction(note: Note) {
+    try {
+        await deleteNoteFromDb(note);
+        revalidatePath('/notes');
+        return { success: true }
+    } catch(e) {
+        const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
+        console.error('Error deleting note:', errorMessage);
         return { success: false, error: errorMessage };
     }
 }

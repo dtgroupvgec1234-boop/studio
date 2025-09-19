@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import {
   Card,
   CardContent,
@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { addBookAction } from '@/app/actions';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormStatus } from 'react-dom';
 import { toast } from '@/hooks/use-toast';
 import { getBooks } from '@/lib/firebase';
 
@@ -94,7 +94,7 @@ export default function BooksPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [pdfFileName, setPdfFileName] = useState<string | null>(null);
 
-  const [formState, formAction] = useFormState(addBookAction, { success: false });
+  const [formState, formAction] = useActionState(addBookAction, { success: false });
 
   useEffect(() => {
     async function fetchBooks() {
@@ -114,7 +114,7 @@ export default function BooksPage() {
       });
       // Refetch books to show the newly added one
       getBooks().then(setBooks);
-      // Reset form state if needed, though useFormState doesn't auto-reset
+      // Reset form state if needed, though useActionState doesn't auto-reset
     } else if (formState.error) {
       toast({
         variant: 'destructive',

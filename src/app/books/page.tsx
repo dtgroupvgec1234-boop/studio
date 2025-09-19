@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { resources, type Resource } from '@/lib/data';
-import { Book, Globe, Upload } from 'lucide-react';
+import { Book, Globe, Upload, File } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -32,11 +32,18 @@ function getCategoryIcon(category: Resource['category']) {
 export default function BooksPage() {
   const [books, setBooks] = useState<Resource[]>(initialBooks);
   const [newBook, setNewBook] = useState({ title: '', description: '', subject: '' });
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setNewBook(prev => ({...prev, [name]: value}));
   }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setPdfFile(e.target.files[0]);
+    }
+  };
 
   const handleAddBook = (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,13 +51,14 @@ export default function BooksPage() {
       const bookToAdd: Resource = {
         id: `new-${books.length + 1}`,
         title: newBook.title,
-        description: newBook.description,
+        description: `${newBook.description}${pdfFile ? `\n\nFile: ${pdfFile.name}` : ''}`,
         subject: newBook.subject,
         category: 'Textbook',
         link: '#',
       };
       setBooks(prev => [bookToAdd, ...prev]);
       setNewBook({ title: '', description: '', subject: '' }); // Reset form
+      setPdfFile(null);
     }
   }
 
@@ -88,6 +96,16 @@ export default function BooksPage() {
                             <Label htmlFor="description">Description</Label>
                             <Textarea id="description" name="description" placeholder="A short summary of the book" value={newBook.description} onChange={handleInputChange} required />
                         </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="pdf-upload">Upload PDF (optional)</Label>
+                            <div className="flex items-center justify-center space-x-2 rounded-md border-2 border-dashed border-border p-4 text-center">
+                                <File className="h-8 w-8 text-muted-foreground" />
+                                <Label htmlFor="pdf-upload" className="cursor-pointer font-semibold text-primary hover:underline">
+                                    {pdfFile ? pdfFile.name : 'Choose a PDF file'}
+                                </Label>
+                                <Input id="pdf-upload" type="file" className="sr-only" accept=".pdf" onChange={handleFileChange} />
+                            </div>
+                        </div>
                     </CardContent>
                     <CardFooter>
                         <Button type="submit" className="w-full">
@@ -122,7 +140,7 @@ export default function BooksPage() {
                     </div>
                     </CardHeader>
                     <CardContent className="flex-grow flex flex-col justify-between">
-                    <CardDescription>{resource.description}</CardDescription>
+                    <CardDescription className="whitespace-pre-wrap">{resource.description}</CardDescription>
                     <div className="mt-4">
                         <Badge variant="secondary">{resource.subject}</Badge>
                     </div>

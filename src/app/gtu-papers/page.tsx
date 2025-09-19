@@ -11,7 +11,7 @@ import { ArrowUpRight } from 'lucide-react';
 const gtuPapers = {
   title: 'GTU Old Question Papers',
   description: 'A collection of previous year question papers for all first-year subjects.',
-  link: 'https://www.gtu.ac.in/result/Paper_Display.aspx',
+  link: 'https://gtustudy.in/',
   category: 'Website',
   subject: 'All Subjects',
 };

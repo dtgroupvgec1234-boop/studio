@@ -1,3 +1,4 @@
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -213,6 +214,41 @@ export const quizzes: Quiz[] = [
         options: ["0/1", "1/0", "0/0", "1/1"],
         correctAnswer: "0/0",
       },
+      {
+        question: "The value of the integral of 1/x dx is:",
+        options: ["ln(x)", "x^2", "1/x^2", "-1/x^2"],
+        correctAnswer: "ln(x)",
+      },
+      {
+        question: "The Beta function B(m,n) is defined as:",
+        options: ["∫(0 to 1) x^(m-1) (1-x)^(n-1) dx", "∫(0 to ∞) x^(m-1) e^(-x) dx", "∫(0 to 1) x^m (1-x)^n dx", "∫(0 to ∞) x^(n-1) e^(-x) dx"],
+        correctAnswer: "∫(0 to 1) x^(m-1) (1-x)^(n-1) dx",
+      },
+      {
+        question: "If a matrix A has an inverse, it is called a:",
+        options: ["Singular matrix", "Non-singular matrix", "Symmetric matrix", "Identity matrix"],
+        correctAnswer: "Non-singular matrix",
+      },
+      {
+        question: "What are the eigenvalues of an identity matrix of order n?",
+        options: ["All 0s", "All 1s", "All ns", "A mix of 0s and 1s"],
+        correctAnswer: "All 1s",
+      },
+      {
+        question: "The Cayley-Hamilton Theorem states that every square matrix satisfies its own:",
+        options: ["Characteristic equation", "Inverse equation", "Transpose equation", "Adjoint equation"],
+        correctAnswer: "Characteristic equation",
+      },
+      {
+        question: "What is the rank of a null matrix?",
+        options: ["1", "0", "-1", "Not defined"],
+        correctAnswer: "0",
+      },
+      {
+        question: "The derivative of sin(x) is:",
+        options: ["cos(x)", "-sin(x)", "-cos(x)", "tan(x)"],
+        correctAnswer: "cos(x)",
+      },
     ],
   },
   {
@@ -228,6 +264,46 @@ export const quizzes: Quiz[] = [
         question: "The phenomenon of light bending around corners is called:",
         options: ["Reflection", "Refraction", "Diffraction", "Interference"],
         correctAnswer: "Diffraction",
+      },
+      {
+        question: "Work done is a:",
+        options: ["Scalar quantity", "Vector quantity", "Both scalar and vector", "Neither scalar nor vector"],
+        correctAnswer: "Scalar quantity",
+      },
+      {
+        question: "The unit of power is:",
+        options: ["Joule", "Watt", "Newton", "Pascal"],
+        correctAnswer: "Watt",
+      },
+      {
+        question: "The time period of a simple pendulum depends on its:",
+        options: ["Mass", "Length", "Amplitude", "Material of the bob"],
+        correctAnswer: "Length",
+      },
+      {
+        question: "Constructive interference occurs when the path difference is:",
+        options: ["nλ", "(n+1/2)λ", "n/λ", "λ/n"],
+        correctAnswer: "nλ",
+      },
+      {
+        question: "Polarization is a property of:",
+        options: ["Transverse waves", "Longitudinal waves", "Both", "Neither"],
+        correctAnswer: "Transverse waves",
+      },
+      {
+        question: "LASER is an acronym for:",
+        options: ["Light Amplification by Stimulated Emission of Radiation", "Light Absorption by Spontaneous Emission of Radiation", "Light Amplification by Spontaneous Emission of Radiation", "Light Absorption by Stimulated Emission of Radiation"],
+        correctAnswer: "Light Amplification by Stimulated Emission of Radiation",
+      },
+      {
+        question: "Heisenberg's Uncertainty Principle relates:",
+        options: ["Position and momentum", "Energy and time", "Both A and B", "None of the above"],
+        correctAnswer: "Both A and B",
+      },
+      {
+        question: "The specific charge of an electron is:",
+        options: ["1.6 x 10^-19 C", "9.1 x 10^-31 kg", "1.76 x 10^11 C/kg", "6.022 x 10^23"],
+        correctAnswer: "1.76 x 10^11 C/kg",
       },
     ],
   },
@@ -249,6 +325,41 @@ export const quizzes: Quiz[] = [
         question: "Which function is the entry point of every C program?",
         options: ["start()", "main()", "program()", "entry()"],
         correctAnswer: "main()",
+      },
+      {
+        question: "What is the size of a `char` data type in C?",
+        options: ["1 byte", "2 bytes", "4 bytes", "8 bytes"],
+        correctAnswer: "1 byte",
+      },
+      {
+        question: "Which loop is guaranteed to execute at least once?",
+        options: ["for", "while", "do-while", "if"],
+        correctAnswer: "do-while",
+      },
+      {
+        question: "The `&` operator is used to get the:",
+        options: ["Value of a variable", "Address of a variable", "Size of a variable", "Type of a variable"],
+        correctAnswer: "Address of a variable",
+      },
+      {
+        question: "Which header file is required for using `printf()` and `scanf()`?",
+        options: ["<stdlib.h>", "<string.h>", "<math.h>", "<stdio.h>"],
+        correctAnswer: "<stdio.h>",
+      },
+      {
+        question: "A string in C is an array of characters ending with:",
+        options: ["'\\0'", "'.'", "'\\n'", "':'"],
+        correctAnswer: "'\\0'",
+      },
+      {
+        question: "What does `malloc()` function do?",
+        options: ["Allocates memory and initializes it to zero", "Allocates memory but doesn't initialize", "Frees allocated memory", "Reallocates memory"],
+        correctAnswer: "Allocates memory but doesn't initialize",
+      },
+      {
+        question: "Which keyword is used to create a user-defined data type by grouping items of different types?",
+        options: ["struct", "union", "typedef", "enum"],
+        correctAnswer: "struct",
       },
     ],
   },
@@ -272,6 +383,41 @@ export const quizzes: Quiz[] = [
         options: ['Generator', 'Motor', 'Transformer', 'Inverter'],
         correctAnswer: 'Motor',
       },
+      {
+        question: "Kirchhoff's Current Law (KCL) states that the algebraic sum of currents ______ a node is zero.",
+        options: ["entering", "leaving", "entering and leaving", "passing through"],
+        correctAnswer: "entering and leaving",
+      },
+      {
+        question: "In a purely resistive AC circuit, the phase angle between voltage and current is:",
+        options: ["90 degrees", "0 degrees", "180 degrees", "45 degrees"],
+        correctAnswer: "0 degrees",
+      },
+      {
+        question: "A transformer works on the principle of:",
+        options: ["Self-induction", "Mutual induction", "Ohm's Law", "Lenz's Law"],
+        correctAnswer: "Mutual induction",
+      },
+      {
+        question: "The frequency of AC mains in India is:",
+        options: ["60 Hz", "50 Hz", "100 Hz", "120 Hz"],
+        correctAnswer: "50 Hz",
+      },
+      {
+        question: "Which material is commonly used as a semiconductor?",
+        options: ["Copper", "Aluminum", "Silicon", "Silver"],
+        correctAnswer: "Silicon",
+      },
+      {
+        question: "The power factor in a purely inductive circuit is:",
+        options: ["1", "0", "0.5", "-1"],
+        correctAnswer: "0",
+      },
+      {
+        question: "What does a capacitor store?",
+        options: ["Current", "Voltage", "Charge", "Resistance"],
+        correctAnswer: "Charge",
+      },
     ],
   },
   {
@@ -293,6 +439,46 @@ export const quizzes: Quiz[] = [
           'The ability of a material to deform under tensile stress is called:',
         options: ['Hardness', 'Ductility', 'Brittleness', 'Stiffness'],
         correctAnswer: 'Ductility',
+      },
+      {
+        question: "The Zeroth Law of Thermodynamics deals with:",
+        options: ["Thermal equilibrium", "Energy conservation", "Entropy", "Absolute zero temperature"],
+        correctAnswer: "Thermal equilibrium",
+      },
+      {
+        question: "Which of the following is an intensive property?",
+        options: ["Volume", "Mass", "Energy", "Temperature"],
+        correctAnswer: "Temperature",
+      },
+      {
+        question: "The efficiency of a Carnot engine depends on:",
+        options: ["The working substance", "The temperatures of the source and sink", "The design of the engine", "The power output"],
+        correctAnswer: "The temperatures of the source and sink",
+      },
+      {
+        question: "What is the unit of stress?",
+        options: ["N", "N/m", "N·m", "N/m² (Pascal)"],
+        correctAnswer: "N/m² (Pascal)",
+      },
+      {
+        question: "Which type of friction acts when a body is in motion?",
+        options: ["Static friction", "Kinetic friction", "Rolling friction", "Fluid friction"],
+        correctAnswer: "Kinetic friction",
+      },
+      {
+        question: "A moment of force is also known as:",
+        options: ["Torque", "Impulse", "Work", "Power"],
+        correctAnswer: "Torque",
+      },
+      {
+        question: "The centroid of a triangle is the intersection of its:",
+        options: ["Altitudes", "Medians", "Perpendicular bisectors", "Angle bisectors"],
+        correctAnswer: "Medians",
+      },
+      {
+        question: "Which material is known for its high carbon content and brittleness?",
+        options: ["Mild Steel", "Aluminum", "Cast Iron", "Copper"],
+        correctAnswer: "Cast Iron",
       },
     ],
   },
@@ -375,3 +561,5 @@ export const resources: Resource[] = [
         subject: 'Physics'
     }
 ]
+
+    

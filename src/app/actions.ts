@@ -1,6 +1,6 @@
 'use server';
 
-import { addBook, uploadFile, addNote } from '@/lib/firebase';
+import { addBook, uploadFile } from '@/lib/firebase';
 import type { BookResource } from '@/lib/data';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
@@ -66,45 +66,6 @@ export async function addBookAction(prevState: AddBookState | undefined, formDat
     } catch (e) {
         const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
         console.error('Error adding book:', errorMessage);
-        return { success: false, error: errorMessage };
-    }
-}
-
-
-const addNoteSchema = z.object({
-  noteFile: z
-    .instanceof(File)
-    .refine((file) => file.size > 0, { message: 'Image is required.' }),
-});
-
-export type AddNoteState = {
-  success: boolean;
-  error?: string;
-};
-export async function addNoteAction(prevState: AddNoteState | undefined, formData: FormData): Promise<AddNoteState> {
-    const validatedFields = addNoteSchema.safeParse({
-        noteFile: formData.get('noteFile'),
-    });
-
-    if (!validatedFields.success) {
-        return {
-            success: false,
-            error: Object.values(validatedFields.error.flatten().fieldErrors).flat().join(', '),
-        };
-    }
-
-    const { noteFile } = validatedFields.data;
-
-    try {
-        const { downloadUrl } = await uploadFile(noteFile, 'notes');
-        await addNote({
-            imageUrl: downloadUrl,
-            createdAt: new Date(),
-        });
-        revalidatePath('/notes');
-        return { success: true };
-    } catch (e) {
-        const errorMessage = e instanceof Error ? e.message : 'An unknown error occurred.';
         return { success: false, error: errorMessage };
     }
 }

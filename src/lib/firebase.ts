@@ -21,14 +21,7 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 
 const booksCollection = collection(db, 'books');
-const notesCollection = collection(db, 'notes');
 
-export type Note = {
-    id: string;
-    imageUrl: string;
-    storagePath: string;
-    createdAt: number;
-}
 
 export async function addBook(book: Omit<BookResource, 'id'>): Promise<BookResource> {
     const docRef = await addDoc(booksCollection, book);
@@ -52,29 +45,4 @@ export async function uploadFile(file: File, path: string): Promise<{ downloadUr
     const snapshot = await uploadBytes(storageRef, file);
     const downloadUrl = await getDownloadURL(snapshot.ref);
     return { downloadUrl, fullPath: snapshot.ref.fullPath };
-}
-
-
-export async function addNote(imageUrl: string, storagePath: string): Promise<Note> {
-    const docRef = await addDoc(notesCollection, {
-        imageUrl,
-        storagePath,
-        createdAt: Date.now(),
-    });
-
-    return {
-        id: docRef.id,
-        imageUrl,
-        storagePath,
-        createdAt: Date.now(),
-    };
-}
-
-export async function getNotes(): Promise<Note[]> {
-    const querySnapshot = await getDocs(notesCollection);
-    const notes: Note[] = [];
-    querySnapshot.forEach((doc) => {
-        notes.push({ id: doc.id, ...doc.data() } as Note);
-    });
-    return notes.sort((a, b) => b.createdAt - a.createdAt);
 }

@@ -243,5 +243,13 @@ export const resources: Resource[] = [
         link: '#',
         category: 'Textbook',
         subject: 'Programming'
+    },
+    {
+        id: '7',
+        title: 'First Year Engineering Physics by Gautam Varad',
+        description: 'A comprehensive video series covering key topics in first-year engineering physics.',
+        link: 'https://www.youtube.com/playlist?list=PL_73_1S61i_12A4-q5t1f_ySj0l4A3lHh',
+        category: 'Video Playlist',
+        subject: 'Physics'
     }
 ]

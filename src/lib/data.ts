@@ -251,13 +251,5 @@ export const resources: Resource[] = [
         link: 'https://youtube.com/playlist?list=PL3qvHcrYGy1v2kJX4SSsurE3_GdVe0ZD5&si=-5B4Y0wPuV1ov9lP',
         category: 'Video Playlist',
         subject: 'Physics'
-    },
-    {
-        id: '8',
-        title: 'GTU Old Question Papers',
-        description: 'Access old question papers for all first-year subjects to prepare for your exams.',
-        link: 'https://www.gtu.ac.in/old_question_paper.aspx',
-        category: 'Website',
-        subject: 'All Subjects'
     }
 ]

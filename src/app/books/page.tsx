@@ -12,11 +12,12 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { resources, type Resource } from '@/lib/data';
-import { Book, Globe, Upload, File } from 'lucide-react';
+import { Book, Globe, Upload, File, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+import Link from 'next/link';
 
 const initialBooks = resources.filter((r) => r.category === 'Textbook');
 
@@ -51,10 +52,10 @@ export default function BooksPage() {
       const bookToAdd: Resource = {
         id: `new-${books.length + 1}`,
         title: newBook.title,
-        description: `${newBook.description}${pdfFile ? `\n\nFile: ${pdfFile.name}` : ''}`,
+        description: newBook.description,
         subject: newBook.subject,
         category: 'Textbook',
-        link: '#',
+        link: pdfFile ? URL.createObjectURL(pdfFile) : '#',
       };
       setBooks(prev => [bookToAdd, ...prev]);
       setNewBook({ title: '', description: '', subject: '' }); // Reset form
@@ -126,18 +127,19 @@ export default function BooksPage() {
                 >
                     <CardHeader>
                     <div className="flex justify-between items-start">
-                        <div>
-                        <CardTitle className="font-headline text-xl leading-snug">
-                            {resource.title}
-                        </CardTitle>
-                        <div className="flex items-center gap-2 mt-2">
+                        <a href={resource.link} target="_blank" rel="noopener noreferrer" className="block">
+                            <CardTitle className="font-headline text-xl leading-snug hover:underline">
+                                {resource.title}
+                            </CardTitle>
+                        </a>
+                         {resource.link !== '#' && <ArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0" />}
+                    </div>
+                     <div className="flex items-center gap-2 mt-2">
                             {getCategoryIcon(resource.category)}
                             <p className="text-sm text-muted-foreground">
                             {resource.category}
                             </p>
                         </div>
-                        </div>
-                    </div>
                     </CardHeader>
                     <CardContent className="flex-grow flex flex-col justify-between">
                     <CardDescription className="whitespace-pre-wrap">{resource.description}</CardDescription>

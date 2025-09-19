@@ -3,8 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { GraduationCap, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 
 const menuItems = [
@@ -12,6 +18,7 @@ const menuItems = [
   { href: "/syllabus", label: "Syllabus" },
   { href: "/quizzes", label: "Practice Quizzes" },
   { href: "/resources", label: "VIDEO resources" },
+  { href: "/books", label: "Books" },
   { href: "/notes", label: "Notes" },
   { href: "/gtu-papers", label: "GTU" },
 ];
@@ -50,22 +57,21 @@ export function Header() {
               {item.label}
             </Link>
           ))}
-          <div className="relative">
-            <Button variant="ghost" className="text-foreground/60">
-              Tools
-            </Button>
-            <div className="absolute top-full mt-2 w-48 rounded-md bg-background shadow-lg border p-2 hidden">
+           <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="text-foreground/60 flex items-center gap-1">
+                Tools
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
               {toolsMenuItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="block px-4 py-2 text-sm text-foreground/80 hover:bg-muted"
-                >
-                  {item.label}
-                </Link>
+                <DropdownMenuItem key={item.label} asChild>
+                  <Link href={item.href}>{item.label}</Link>
+                </DropdownMenuItem>
               ))}
-            </div>
-          </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
         <div className="flex flex-1 items-center justify-end md:hidden">
           <Button

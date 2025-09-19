@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Notebook,
   ClipboardList,
+  BookOpen,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -55,6 +56,13 @@ const features = [
     href: '/gtu-papers',
     icon: <ClipboardList className="size-8 text-primary" />,
     imageId: 'gtu-papers',
+  },
+  {
+    title: 'Books',
+    description: 'Find recommended textbooks for your courses.',
+    href: '/books',
+    icon: <BookOpen className="size-8 text-primary" />,
+    imageId: 'books',
   },
   {
     title: 'Notes Summarizer',

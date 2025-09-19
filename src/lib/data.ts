@@ -195,6 +195,15 @@ export type Resource = {
     subject: string;
 }
 
+export type BookResource = {
+    id: string;
+    title: string;
+    description: string;
+    link?: string;
+    category: 'Textbook';
+    subject: string;
+}
+
 export const resources: Resource[] = [
     {
         id: '1',

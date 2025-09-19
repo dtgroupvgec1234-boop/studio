@@ -1,7 +1,6 @@
-
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Card,
   CardContent,
@@ -11,17 +10,18 @@ import {
   CardFooter,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { resources, type Resource } from '@/lib/data';
-import { Book, Globe, Upload, File, ArrowUpRight } from 'lucide-react';
+import type { BookResource } from '@/lib/data';
+import { Book, Globe, Upload, File, ArrowUpRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
+import { addBookAction } from '@/app/actions';
+import { useFormState, useFormStatus } from 'react-dom';
+import { toast } from '@/hooks/use-toast';
+import { getBooks } from '@/lib/firebase';
 
-const initialBooks = resources.filter((r) => r.category === 'Textbook');
-
-function getCategoryIcon(category: Resource['category']) {
+function getCategoryIcon(category: BookResource['category']) {
   switch (category) {
     case 'Textbook':
       return <Book className="h-5 w-5 text-muted-foreground" />;
@@ -30,7 +30,7 @@ function getCategoryIcon(category: Resource['category']) {
   }
 }
 
-const BookCard = ({ resource }: { resource: Resource }) => {
+const BookCard = ({ resource }: { resource: BookResource }) => {
   const CardContentWrapper = () => (
     <Card
         className="h-full flex flex-col hover:shadow-lg transition-transform duration-300 hover:-translate-y-1"
@@ -40,7 +40,7 @@ const BookCard = ({ resource }: { resource: Resource }) => {
             <CardTitle className="font-headline text-xl leading-snug hover:underline">
               {resource.title}
             </CardTitle>
-            {resource.link !== '#' && <ArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0" />}
+            {resource.link && resource.link !== '#' && <ArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0" />}
           </div>
           <div className="flex items-center gap-2 mt-2">
             {getCategoryIcon(resource.category)}
@@ -58,7 +58,7 @@ const BookCard = ({ resource }: { resource: Resource }) => {
       </Card>
   )
 
-  if (resource.link === '#') {
+  if (!resource.link || resource.link === '#') {
     return <CardContentWrapper />;
   }
   
@@ -69,39 +69,70 @@ const BookCard = ({ resource }: { resource: Resource }) => {
   );
 }
 
+function SubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+        <Button type="submit" className="w-full" disabled={pending}>
+            {pending ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Adding...
+                </>
+            ) : (
+                <>
+                    <Upload className="mr-2 h-4 w-4"/>
+                    Add Book
+                </>
+            )}
+        </Button>
+    );
+}
+
 
 export default function BooksPage() {
-  const [books, setBooks] = useState<Resource[]>(initialBooks);
-  const [newBook, setNewBook] = useState({ title: '', description: '', subject: '' });
-  const [pdfFile, setPdfFile] = useState<File | null>(null);
+  const [books, setBooks] = useState<BookResource[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [pdfFileName, setPdfFileName] = useState<string | null>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setNewBook(prev => ({...prev, [name]: value}));
-  }
+  const [formState, formAction] = useFormState(addBookAction, { success: false });
+
+  useEffect(() => {
+    async function fetchBooks() {
+        setIsLoading(true);
+        const fetchedBooks = await getBooks();
+        setBooks(fetchedBooks);
+        setIsLoading(false);
+    }
+    fetchBooks();
+  }, []);
+
+  useEffect(() => {
+    if (formState.success) {
+      toast({
+        title: 'Book added!',
+        description: 'Your new book has been added to the list.',
+      });
+      // Refetch books to show the newly added one
+      getBooks().then(setBooks);
+      // Reset form state if needed, though useFormState doesn't auto-reset
+    } else if (formState.error) {
+      toast({
+        variant: 'destructive',
+        title: 'Uh oh! Something went wrong.',
+        description: formState.error,
+      });
+    }
+  }, [formState]);
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setPdfFile(e.target.files[0]);
+      setPdfFileName(e.target.files[0].name);
+    } else {
+      setPdfFileName(null);
     }
   };
 
-  const handleAddBook = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newBook.title && newBook.description && newBook.subject) {
-      const bookToAdd: Resource = {
-        id: `new-${books.length + 1}`,
-        title: newBook.title,
-        description: newBook.description,
-        subject: newBook.subject,
-        category: 'Textbook',
-        link: pdfFile ? URL.createObjectURL(pdfFile) : '#',
-      };
-      setBooks(prev => [bookToAdd, ...prev]);
-      setNewBook({ title: '', description: '', subject: '' }); // Reset form
-      setPdfFile(null);
-    }
-  }
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
@@ -123,47 +154,50 @@ export default function BooksPage() {
                         Fill out the form to add a book to the list.
                     </CardDescription>
                 </CardHeader>
-                <form onSubmit={handleAddBook}>
+                <form action={formAction}>
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="title">Title</Label>
-                            <Input id="title" name="title" placeholder="e.g., Higher Engineering Mathematics" value={newBook.title} onChange={handleInputChange} required />
+                            <Input id="title" name="title" placeholder="e.g., Higher Engineering Mathematics" required />
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="subject">Subject</Label>
-                            <Input id="subject" name="subject" placeholder="e.g., Mathematics" value={newBook.subject} onChange={handleInputChange} required />
+                            <Input id="subject" name="subject" placeholder="e.g., Mathematics" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="description">Description</Label>
-                            <Textarea id="description" name="description" placeholder="A short summary of the book" value={newBook.description} onChange={handleInputChange} required />
+                            <Textarea id="description" name="description" placeholder="A short summary of the book" required />
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="pdf-upload">Upload PDF (optional)</Label>
                             <div className="flex items-center justify-center space-x-2 rounded-md border-2 border-dashed border-border p-4 text-center">
                                 <File className="h-8 w-8 text-muted-foreground" />
                                 <Label htmlFor="pdf-upload" className="cursor-pointer font-semibold text-primary hover:underline">
-                                    {pdfFile ? pdfFile.name : 'Choose a PDF file'}
+                                    {pdfFileName || 'Choose a PDF file'}
                                 </Label>
-                                <Input id="pdf-upload" type="file" className="sr-only" accept=".pdf" onChange={handleFileChange} />
+                                <Input id="pdf-upload" name="pdfFile" type="file" className="sr-only" accept=".pdf" onChange={handleFileChange} />
                             </div>
                         </div>
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit" className="w-full">
-                            <Upload className="mr-2 h-4 w-4"/>
-                            Add Book
-                        </Button>
+                       <SubmitButton />
                     </CardFooter>
                 </form>
             </Card>
         </div>
 
         <div className="lg:col-span-2">
+          {isLoading ? (
+             <div className="flex items-center justify-center h-full col-span-2">
+                <Loader2 className="h-12 w-12 animate-spin text-primary" />
+             </div>
+          ) : (
             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
                 {books.map((resource) => (
                   <BookCard key={resource.id} resource={resource} />
                 ))}
             </div>
+          )}
         </div>
       </div>
     </div>

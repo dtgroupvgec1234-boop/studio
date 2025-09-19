@@ -58,7 +58,7 @@ const features = [
   },
   {
     title: 'Notes Summarizer',
-    description: 'Generate concise summaries of your lecture notes.',
+    description: 'Upload images and pdf',
     href: '/tools/notes-summarizer',
     icon: <FileText className="size-8 text-primary" />,
     imageId: 'summarizer',

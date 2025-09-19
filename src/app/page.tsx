@@ -34,7 +34,7 @@ const features = [
     imageId: 'quizzes',
   },
   {
-    title: 'Resource Directory',
+    title: 'VIDEO resources',
     description: 'Links to relevant online study materials and textbooks.',
     href: '/resources',
     icon: <LinkIcon className="size-8 text-primary" />,

@@ -27,10 +27,10 @@ export default function ResourcesPage() {
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <header className="mb-8">
         <h1 className="text-4xl font-bold font-headline text-primary">
-          Resource Directory
+          VIDEO resources
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Curated list of study materials to help you succeed.
+          Curated list of video resources to help you succeed.
         </p>
       </header>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

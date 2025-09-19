@@ -33,7 +33,7 @@ const menuItems = [
   { href: "/", label: "Home", icon: Home },
   { href: "/syllabus", label: "Syllabus", icon: BookText },
   { href: "/quizzes", label: "Practice Quizzes", icon: PencilRuler },
-  { href: "/resources", label: "Resources", icon: LinkIcon },
+  { href: "/resources", label: "VIDEO resources", icon: LinkIcon },
 ];
 
 const toolsMenuItems = [

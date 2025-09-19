@@ -39,9 +39,10 @@ const prompt = ai.definePrompt({
   name: 'importantQuestionsIdentifierPrompt',
   input: {schema: ImportantQuestionsIdentifierInputSchema},
   output: {schema: ImportantQuestionsIdentifierOutputSchema},
-  prompt: `You are an AI assistant helping students identify the most important questions for their courses.
+  prompt: `You are an AI assistant helping students of Gujarat Technological University (GTU) identify the most important questions for their courses.
 
-  Based on the provided course material, identify the questions that are most likely to appear on exams or are crucial for understanding the core concepts.
+  Based on the provided course material, identify the questions that are most likely to appear on GTU exams or are crucial for understanding the core concepts.
+  Prioritize questions that have appeared in previous years' question papers (PYQs).
   Return a list of these questions.
 
   Course Material:

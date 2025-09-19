@@ -53,7 +53,7 @@ export default function NotesSummarizerPage() {
         <form action={formAction}>
           <Card>
             <CardHeader>
-              <CardTitle>Your Notes</CardTitle>
+              <CardTitle>Upload Images</CardTitle>
               <CardDescription>
                 Paste your lecture notes, textbook chapters, or any study material below.
               </CardDescription>

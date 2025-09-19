@@ -248,7 +248,7 @@ export const resources: Resource[] = [
         id: '7',
         title: 'First Year Engineering Physics by Gautam Varad',
         description: 'A comprehensive video series covering key topics in first-year engineering physics.',
-        link: 'https://www.youtube.com/playlist?list=PL_73_1S61i_12A4-q5t1f_ySj0l4A3lHh',
+        link: 'https://youtube.com/playlist?list=PL3qvHcrYGy1v2kJX4SSsurE3_GdVe0ZD5&si=-5B4Y0wPuV1ov9lP',
         category: 'Video Playlist',
         subject: 'Physics'
     }

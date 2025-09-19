@@ -9,7 +9,7 @@
     {
       "id": "quizzes",
       "description": "A person taking a test, representing practice quizzes",
-      "imageUrl": "https://picsum.photos/seed/quizzes/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1652077859695-de2851a95620?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxRdWVzdGlvbiUyMGZvciUyMHByYWN0aWNlfGVufDB8fHx8MTc1ODI3MzUwNnww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "taking test"
     },
     {

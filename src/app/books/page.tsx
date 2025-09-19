@@ -30,6 +30,46 @@ function getCategoryIcon(category: Resource['category']) {
   }
 }
 
+const BookCard = ({ resource }: { resource: Resource }) => {
+  const CardContentWrapper = () => (
+    <Card
+        className="h-full flex flex-col hover:shadow-lg transition-transform duration-300 hover:-translate-y-1"
+      >
+        <CardHeader>
+          <div className="flex justify-between items-start">
+            <CardTitle className="font-headline text-xl leading-snug hover:underline">
+              {resource.title}
+            </CardTitle>
+            {resource.link !== '#' && <ArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0" />}
+          </div>
+          <div className="flex items-center gap-2 mt-2">
+            {getCategoryIcon(resource.category)}
+            <p className="text-sm text-muted-foreground">
+              {resource.category}
+            </p>
+          </div>
+        </CardHeader>
+        <CardContent className="flex-grow flex flex-col justify-between">
+          <CardDescription className="whitespace-pre-wrap">{resource.description}</CardDescription>
+          <div className="mt-4">
+            <Badge variant="secondary">{resource.subject}</Badge>
+          </div>
+        </CardContent>
+      </Card>
+  )
+
+  if (resource.link === '#') {
+    return <CardContentWrapper />;
+  }
+  
+  return (
+    <a href={resource.link} target="_blank" rel="noopener noreferrer" className="block h-full">
+      <CardContentWrapper />
+    </a>
+  );
+}
+
+
 export default function BooksPage() {
   const [books, setBooks] = useState<Resource[]>(initialBooks);
   const [newBook, setNewBook] = useState({ title: '', description: '', subject: '' });
@@ -121,33 +161,7 @@ export default function BooksPage() {
         <div className="lg:col-span-2">
             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
                 {books.map((resource) => (
-                <Card
-                    key={resource.id}
-                    className="h-full flex flex-col hover:shadow-lg transition-transform duration-300 hover:-translate-y-1"
-                >
-                    <CardHeader>
-                    <div className="flex justify-between items-start">
-                        <a href={resource.link} target="_blank" rel="noopener noreferrer" className="block">
-                            <CardTitle className="font-headline text-xl leading-snug hover:underline">
-                                {resource.title}
-                            </CardTitle>
-                        </a>
-                         {resource.link !== '#' && <ArrowUpRight className="h-5 w-5 text-muted-foreground shrink-0" />}
-                    </div>
-                     <div className="flex items-center gap-2 mt-2">
-                            {getCategoryIcon(resource.category)}
-                            <p className="text-sm text-muted-foreground">
-                            {resource.category}
-                            </p>
-                        </div>
-                    </CardHeader>
-                    <CardContent className="flex-grow flex flex-col justify-between">
-                    <CardDescription className="whitespace-pre-wrap">{resource.description}</CardDescription>
-                    <div className="mt-4">
-                        <Badge variant="secondary">{resource.subject}</Badge>
-                    </div>
-                    </CardContent>
-                </Card>
+                  <BookCard key={resource.id} resource={resource} />
                 ))}
             </div>
         </div>

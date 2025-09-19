@@ -15,8 +15,8 @@
     {
       "id": "resources",
       "description": "A collection of books and a laptop, representing a resource directory",
-      "imageUrl": "https://picsum.photos/seed/resources/600/400",
-      "imageHint": "library books"
+      "imageUrl": "https://images.unsplash.com/photo-1611162616475-46b635cb6868?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxWaWRlbyUyMHBsYXllcnxlbnwwfHx8fDE3NTgyNzUzNjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "video player"
     },
     {
       "id": "notes",

@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "syllabus",
+      "description": "An open book representing a syllabus",
+      "imageUrl": "https://picsum.photos/seed/syllabus/600/400",
+      "imageHint": "open book"
+    },
+    {
+      "id": "quizzes",
+      "description": "A person taking a test, representing practice quizzes",
+      "imageUrl": "https://picsum.photos/seed/quizzes/600/400",
+      "imageHint": "taking test"
+    },
+    {
+      "id": "resources",
+      "description": "A collection of books and a laptop, representing a resource directory",
+      "imageUrl": "https://picsum.photos/seed/resources/600/400",
+      "imageHint": "library books"
+    },
+    {
+      "id": "summarizer",
+      "description": "A document with highlighted key points, representing a note summarizer",
+      "imageUrl": "https://picsum.photos/seed/summarizer/600/400",
+      "imageHint": "summary notes"
+    },
+    {
+      "id": "questions",
+      "description": "A lightbulb over a book, representing important questions",
+      "imageUrl": "https://picsum.photos/seed/questions/600/400",
+      "imageHint": "idea lightbulb"
+    },
+    {
+      "id": "timetable",
+      "description": "A calendar with marked dates, representing a study timetable",
+      "imageUrl": "https://picsum.photos/seed/timetable/600/400",
+      "imageHint": "calendar schedule"
+    }
+  ]
 }

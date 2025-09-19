@@ -1,19 +1,17 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { AppLayout } from '@/components/app-layout';
-import { PT_Sans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 
 export const metadata: Metadata = {
   title: 'StudyFirst',
   description: 'Your first-year BE study companion',
 };
 
-const ptSans = PT_Sans({
+const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
   display: 'swap',
-  variable: '--font-pt-sans',
+  variable: '--font-inter',
 });
 
 export default function RootLayout({
@@ -22,8 +20,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={ptSans.variable}>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://images.unsplash.com" />
         <link rel="preconnect" href="https://picsum.photos" />
       </head>

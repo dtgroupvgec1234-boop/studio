@@ -13,6 +13,7 @@ import {
   Link as LinkIcon,
   PencilRuler,
   ChevronRight,
+  Notebook,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -39,6 +40,13 @@ const features = [
     href: '/resources',
     icon: <LinkIcon className="size-8 text-primary" />,
     imageId: 'resources',
+  },
+  {
+    title: 'Notes',
+    description: 'Upload and manage your notes.',
+    href: '/notes',
+    icon: <Notebook className="size-8 text-primary" />,
+    imageId: 'notes',
   },
   {
     title: 'Notes Summarizer',

@@ -22,6 +22,7 @@ import {
   Home,
   Lightbulb,
   Link as LinkIcon,
+  Notebook,
   PencilRuler,
 } from "lucide-react";
 import Link from "next/link";
@@ -34,6 +35,7 @@ const menuItems = [
   { href: "/syllabus", label: "Syllabus", icon: BookText },
   { href: "/quizzes", label: "Practice Quizzes", icon: PencilRuler },
   { href: "/resources", label: "VIDEO resources", icon: LinkIcon },
+  { href: "/notes", label: "Notes", icon: Notebook },
 ];
 
 const toolsMenuItems = [

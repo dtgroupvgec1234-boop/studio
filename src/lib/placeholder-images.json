@@ -19,6 +19,12 @@
       "imageHint": "library books"
     },
     {
+      "id": "notes",
+      "description": "A person writing in a notebook",
+      "imageUrl": "https://picsum.photos/seed/notes/600/400",
+      "imageHint": "writing notes"
+    },
+    {
       "id": "summarizer",
       "description": "A document with highlighted key points, representing a note summarizer",
       "imageUrl": "https://picsum.photos/seed/summarizer/600/400",

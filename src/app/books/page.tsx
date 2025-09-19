@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { BookResource } from '@/lib/data';
-import { Book, Globe, Upload, File, ArrowUpRight, Loader2 } from 'lucide-react';
+import { Book, Globe, Upload, File as FileIcon, ArrowUpRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -94,7 +94,7 @@ export default function BooksPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [pdfFileName, setPdfFileName] = useState<string | null>(null);
 
-  const [formState, formAction] = useActionState(addBookAction, { success: false });
+  const [formState, formAction, isFormPending] = useActionState(addBookAction, { success: false, error: undefined });
 
   useEffect(() => {
     async function fetchBooks() {
@@ -158,26 +158,29 @@ export default function BooksPage() {
                     <CardContent className="space-y-4">
                         <div className="space-y-2">
                             <Label htmlFor="title">Title</Label>
-                            <Input id="title" name="title" placeholder="e.g., Higher Engineering Mathematics" required />
+                            <Input id="title" name="title" placeholder="e.g., Higher Engineering Mathematics" required disabled={isFormPending}/>
                         </div>
                          <div className="space-y-2">
                             <Label htmlFor="subject">Subject</Label>
-                            <Input id="subject" name="subject" placeholder="e.g., Mathematics" required />
+                            <Input id="subject" name="subject" placeholder="e.g., Mathematics" required disabled={isFormPending}/>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="description">Description</Label>
-                            <Textarea id="description" name="description" placeholder="A short summary of the book" required />
+                            <Textarea id="description" name="description" placeholder="A short summary of the book" required disabled={isFormPending}/>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="pdf-upload">Upload PDF (optional)</Label>
                             <div className="flex items-center justify-center space-x-2 rounded-md border-2 border-dashed border-border p-4 text-center">
-                                <File className="h-8 w-8 text-muted-foreground" />
+                                <FileIcon className="h-8 w-8 text-muted-foreground" />
                                 <Label htmlFor="pdf-upload" className="cursor-pointer font-semibold text-primary hover:underline">
                                     {pdfFileName || 'Choose a PDF file'}
                                 </Label>
-                                <Input id="pdf-upload" name="pdfFile" type="file" className="sr-only" accept=".pdf" onChange={handleFileChange} />
+                                <Input id="pdf-upload" name="pdfFile" type="file" className="sr-only" accept=".pdf" onChange={handleFileChange} disabled={isFormPending}/>
                             </div>
                         </div>
+                         {formState.error && (
+                          <p className="text-sm font-medium text-destructive">{formState.error}</p>
+                        )}
                     </CardContent>
                     <CardFooter>
                        <SubmitButton />

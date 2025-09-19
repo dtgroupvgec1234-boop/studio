@@ -17,6 +17,7 @@ import {
 import {
   BookText,
   Calendar,
+  ClipboardList,
   FileText,
   GraduationCap,
   Home,
@@ -36,6 +37,7 @@ const menuItems = [
   { href: "/quizzes", label: "Practice Quizzes", icon: PencilRuler },
   { href: "/resources", label: "VIDEO resources", icon: LinkIcon },
   { href: "/notes", label: "Notes", icon: Notebook },
+  { href: "/gtu-papers", label: "GTU Old Papers", icon: ClipboardList },
 ];
 
 const toolsMenuItems = [

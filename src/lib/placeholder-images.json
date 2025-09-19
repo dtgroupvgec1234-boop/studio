@@ -41,6 +41,12 @@
       "description": "A calendar with marked dates, representing a study timetable",
       "imageUrl": "https://picsum.photos/seed/timetable/600/400",
       "imageHint": "calendar schedule"
+    },
+    {
+      "id": "gtu-papers",
+      "description": "A stack of exam papers",
+      "imageUrl": "https://picsum.photos/seed/gtu-papers/600/400",
+      "imageHint": "exam papers"
     }
   ]
 }

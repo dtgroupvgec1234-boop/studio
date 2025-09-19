@@ -14,6 +14,7 @@ import {
   PencilRuler,
   ChevronRight,
   Notebook,
+  ClipboardList,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -47,6 +48,13 @@ const features = [
     href: '/notes',
     icon: <Notebook className="size-8 text-primary" />,
     imageId: 'notes',
+  },
+  {
+    title: 'GTU Old Papers',
+    description: 'Access previous year question papers from GTU.',
+    href: '/gtu-papers',
+    icon: <ClipboardList className="size-8 text-primary" />,
+    imageId: 'gtu-papers',
   },
   {
     title: 'Notes Summarizer',

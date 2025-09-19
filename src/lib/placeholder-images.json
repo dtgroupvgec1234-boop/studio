@@ -33,8 +33,8 @@
     {
       "id": "questions",
       "description": "A lightbulb over a book, representing important questions",
-      "imageUrl": "https://images.unsplash.com/photo-1687529699742-a7e97c518dca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxNXx8JTIwaW1wb3J0YW50JTIwcXVlc3Rpb258ZW58MHx8fHwxNzU4Mjc2MDg5fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "idea lightbulb"
+      "imageUrl": "https://images.unsplash.com/photo-1599508704512-2f19efd1e35f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxRdWVzdGlvbnxlbnwwfHx8fDE3NTgyNzYwNjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "question mark"
     },
     {
       "id": "timetable",

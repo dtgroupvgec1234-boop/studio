@@ -78,7 +78,7 @@ export default function NotesPage() {
         setNotes(fetchedNotes);
     }
     fetchNotes();
-  }, []);
+  }, [uploadFormState.success, captureFormState.success]);
 
   useEffect(() => {
     if (uploadFormState.success) {
@@ -123,9 +123,11 @@ export default function NotesPage() {
   }, []);
 
   const handleCapture = () => {
-    if (videoRef.current && canvasRef.current) {
+    if (videoRef.current && canvasRef.current && captureFormRef.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
+      const form = captureFormRef.current;
+      
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       const context = canvas.getContext('2d');
@@ -134,17 +136,17 @@ export default function NotesPage() {
         canvas.toBlob((blob) => {
           if (blob) {
             const file = new File([blob], `capture-${Date.now()}.png`, { type: 'image/png' });
-            setCapturedImage(file);
+            
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
             
-            const form = captureFormRef.current;
-            if(form) {
-                const noteFileInput = form.querySelector('input[name="noteFile"]') as HTMLInputElement;
-                if(noteFileInput) {
-                    noteFileInput.files = dataTransfer.files;
-                    captureFormAction(new FormData(form));
-                }
+            const noteFileInput = form.querySelector('input[name="noteFile"]') as HTMLInputElement;
+            if(noteFileInput) {
+                noteFileInput.files = dataTransfer.files;
+                
+                // Programmatically submit the form
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                form.dispatchEvent(submitEvent);
             }
           }
         }, 'image/png');

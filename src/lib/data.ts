@@ -564,7 +564,7 @@ export const resources: Resource[] = [
         id: '8',
         title: 'BEE by Atul Prakashan',
         description: 'A textbook for Basic Electrical Engineering.',
-        link: '#',
+        link: 'https://drive.google.com/file/d/1QbjtPIdu96yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Basic Electrical Engineering'
     }
@@ -573,5 +573,6 @@ export const resources: Resource[] = [
     
 
     
+
 
 

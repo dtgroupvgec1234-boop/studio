@@ -559,17 +559,10 @@ export const resources: Resource[] = [
         link: 'https://youtube.com/playlist?list=PL3qvHcrYGy1v2kJX4SSsurE3_GdVe0ZD5&si=-5B4Y0wPuV1ov9lP',
         category: 'Video Playlist',
         subject: 'Physics'
-    },
-    {
-        id: '8',
-        title: 'Basic Electrical Engineering (BEE) by Atul Prakashan',
-        description: 'A textbook for first-year engineering students, covering the fundamentals of electrical engineering.',
-        link: 'https://drive.google.com/file/d/1QbjtPIdu96yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
-        category: 'Textbook',
-        subject: 'Electrical'
     }
 ]
 
     
 
     
+

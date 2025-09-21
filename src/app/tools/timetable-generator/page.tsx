@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Calendar } from "lucide-react";
+import { Calendar, Trash2 } from "lucide-react";
 
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const timeSlots = ["9am - 11am", "11am - 1pm", "2pm - 4pm", "4pm - 6pm"];
@@ -31,6 +31,55 @@ export default function TimetableGeneratorPage() {
   const [selectedSubjects, setSelectedSubjects] = useState<string[]>([]);
   const [availableSlots, setAvailableSlots] = useState<Record<string, string[]>>({});
   const [timetable, setTimetable] = useState<Timetable | null>(null);
+
+  useEffect(() => {
+    try {
+      const savedSubjects = localStorage.getItem("timetable_subjects");
+      const savedSlots = localStorage.getItem("timetable_slots");
+      const savedTimetable = localStorage.getItem("timetable_generated");
+
+      if (savedSubjects) {
+        setSelectedSubjects(JSON.parse(savedSubjects));
+      }
+      if (savedSlots) {
+        setAvailableSlots(JSON.parse(savedSlots));
+      }
+      if (savedTimetable) {
+        setTimetable(JSON.parse(savedTimetable));
+      }
+    } catch (error) {
+      console.error("Failed to load data from localStorage", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("timetable_subjects", JSON.stringify(selectedSubjects));
+    } catch (error) {
+      console.error("Failed to save subjects to localStorage", error);
+    }
+  }, [selectedSubjects]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem("timetable_slots", JSON.stringify(availableSlots));
+    } catch (error) {
+      console.error("Failed to save slots to localStorage", error);
+    }
+  }, [availableSlots]);
+
+  useEffect(() => {
+    try {
+      if (timetable) {
+        localStorage.setItem("timetable_generated", JSON.stringify(timetable));
+      } else {
+        localStorage.removeItem("timetable_generated");
+      }
+    } catch (error) {
+      console.error("Failed to save timetable to localStorage", error);
+    }
+  }, [timetable]);
+
 
   const handleSubjectToggle = (subjectId: string) => {
     setSelectedSubjects((prev) =>
@@ -72,6 +121,9 @@ export default function TimetableGeneratorPage() {
       return;
     }
 
+    // Shuffle slots for better distribution
+    allSlots.sort(() => Math.random() - 0.5);
+
     const newTimetable: Timetable = {};
     let subjectIndex = 0;
 
@@ -88,6 +140,19 @@ export default function TimetableGeneratorPage() {
     setTimetable(newTimetable);
   };
 
+  const resetTimetable = () => {
+    setTimetable(null);
+    setSelectedSubjects([]);
+    setAvailableSlots({});
+    try {
+      localStorage.removeItem("timetable_subjects");
+      localStorage.removeItem("timetable_slots");
+      localStorage.removeItem("timetable_generated");
+    } catch (error) {
+      console.error("Failed to clear localStorage", error);
+    }
+  }
+
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <header className="mb-8">
@@ -95,7 +160,7 @@ export default function TimetableGeneratorPage() {
           Study Timetable Generator
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Create a personalized study schedule based on your courses and time.
+          Create a personalized study schedule based on your courses and time. It saves automatically!
         </p>
       </header>
 
@@ -147,10 +212,16 @@ export default function TimetableGeneratorPage() {
             </CardContent>
           </Card>
 
-          <Button onClick={generateTimetable} className="w-full">
-            <Calendar className="mr-2 h-4 w-4" />
-            Generate Timetable
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={generateTimetable} className="w-full">
+              <Calendar className="mr-2 h-4 w-4" />
+              {timetable ? 'Regenerate' : 'Generate Timetable'}
+            </Button>
+            <Button onClick={resetTimetable} variant="destructive" className="w-full">
+                <Trash2 className="mr-2 h-4 w-4" />
+                Reset
+            </Button>
+          </div>
         </div>
 
         <div className="lg:col-span-2">

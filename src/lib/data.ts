@@ -532,7 +532,7 @@ export const resources: Resource[] = [
         id: '4',
         title: 'Concepts of Physics by H.C. Verma',
         description: 'A popular book for building a strong foundation in physics.',
-        link: '#',
+        link: 'https://www.mbit.edu.in/wp-content/uploads/2020/05/FULLBOOKPHYSICS.pdf',
         category: 'Textbook',
         subject: 'Physics'
     },
@@ -573,6 +573,7 @@ export const resources: Resource[] = [
     
 
     
+
 
 
 

@@ -8,10 +8,11 @@ import {
 import { Badge } from '@/components/ui/badge';
 import type { BookResource } from '@/lib/data';
 import { Book, Globe, ArrowUpRight, AlertCircle } from 'lucide-react';
-import { getBooks } from '@/lib/firebase';
-import { AddBookForm } from './add-book-form';
+// import { getBooks } from '@/lib/firebase';
+// import { AddBookForm } from './add-book-form';
 import Link from 'next/link';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { resources } from '@/lib/data';
 
 function getCategoryIcon(category: BookResource['category']) {
   switch (category) {
@@ -62,20 +63,10 @@ const BookCard = ({ resource }: { resource: BookResource }) => {
 }
 
 export default async function BooksPage() {
-  let books: BookResource[] = [];
-  let error: string | null = null;
-
-  try {
-    books = await getBooks();
-  } catch (e) {
-    console.error(e);
-    if (e instanceof Error && e.message.includes('PERMISSION_DENIED')) {
-      error = "Could not connect to the database. Please ensure the Firestore API is enabled for your project in the Google Cloud console and that your security rules are configured correctly."
-    } else {
-      error = "An unexpected error occurred while fetching books.";
-    }
-  }
-
+  // Switched to static data to prevent crash.
+  // Re-enable firebase fetching after enabling the Firestore API.
+  const books: BookResource[] = resources.filter(r => r.category === 'Textbook').map(r => ({...r, id: r.id, link: r.link || '#'}));
+  const error: string | null = "The form to add new books has been temporarily disabled because the Firestore database is not yet enabled. Please enable the Cloud Firestore API in your Google Cloud console.";
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
@@ -84,36 +75,23 @@ export default async function BooksPage() {
           Recommended Books
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Curated list of textbooks to help you succeed. You can also add your own.
+          Curated list of textbooks to help you succeed.
         </p>
       </header>
 
-      <div className="grid gap-8 lg:grid-cols-3">
-        <div className="lg:col-span-1">
-            <AddBookForm />
-        </div>
-
-        <div className="lg:col-span-2">
-            {error ? (
-               <Alert variant="destructive" className="col-span-2">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertTitle>Error Loading Books</AlertTitle>
-                  <AlertDescription>
-                    {error} If you have just enabled the API, please wait a few minutes and refresh the page.
-                  </AlertDescription>
-                </Alert>
-            ): (
-              <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
-                  {books.map((resource) => (
-                    <BookCard key={resource.id} resource={resource} />
-                  ))}
-                  {books.length === 0 && (
-                      <div className="col-span-2 flex items-center justify-center h-full text-muted-foreground">
-                          No books have been added yet.
-                      </div>
-                  )}
-              </div>
-            )}
+      <div className="space-y-8">
+         <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Feature Temporarily Disabled</AlertTitle>
+          <AlertDescription>
+            {error} Once enabled, the form to add new books will be restored.
+          </AlertDescription>
+        </Alert>
+      
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {books.map((resource) => (
+              <BookCard key={resource.id} resource={resource} />
+            ))}
         </div>
       </div>
     </div>

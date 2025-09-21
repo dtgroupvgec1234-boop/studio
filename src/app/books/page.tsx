@@ -4,20 +4,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-  CardFooter,
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import type { BookResource } from '@/lib/data';
-import { Book, Globe, ArrowUpRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { addBookAction } from '@/app/actions';
-import { toast } from '@/hooks/use-toast';
+import { Book, Globe, ArrowUpRight, AlertCircle } from 'lucide-react';
 import { getBooks } from '@/lib/firebase';
 import { AddBookForm } from './add-book-form';
 import Link from 'next/link';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 function getCategoryIcon(category: BookResource['category']) {
   switch (category) {
@@ -68,7 +62,20 @@ const BookCard = ({ resource }: { resource: BookResource }) => {
 }
 
 export default async function BooksPage() {
-  const books = await getBooks();
+  let books: BookResource[] = [];
+  let error: string | null = null;
+
+  try {
+    books = await getBooks();
+  } catch (e) {
+    console.error(e);
+    if (e instanceof Error && e.message.includes('PERMISSION_DENIED')) {
+      error = "Could not connect to the database. Please ensure the Firestore API is enabled for your project in the Google Cloud console and that your security rules are configured correctly."
+    } else {
+      error = "An unexpected error occurred while fetching books.";
+    }
+  }
+
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
@@ -87,16 +94,26 @@ export default async function BooksPage() {
         </div>
 
         <div className="lg:col-span-2">
-            <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
-                {books.map((resource) => (
-                  <BookCard key={resource.id} resource={resource} />
-                ))}
-                 {books.length === 0 && (
-                    <div className="col-span-2 flex items-center justify-center h-full text-muted-foreground">
-                        No books have been added yet.
-                    </div>
-                )}
-            </div>
+            {error ? (
+               <Alert variant="destructive" className="col-span-2">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertTitle>Error Loading Books</AlertTitle>
+                  <AlertDescription>
+                    {error} If you have just enabled the API, please wait a few minutes and refresh the page.
+                  </AlertDescription>
+                </Alert>
+            ): (
+              <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
+                  {books.map((resource) => (
+                    <BookCard key={resource.id} resource={resource} />
+                  ))}
+                  {books.length === 0 && (
+                      <div className="col-span-2 flex items-center justify-center h-full text-muted-foreground">
+                          No books have been added yet.
+                      </div>
+                  )}
+              </div>
+            )}
         </div>
       </div>
     </div>

@@ -12,6 +12,12 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs';
 import { Video, NotebookText } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 export default function CodingCoursesPage() {
   return (
@@ -44,14 +50,21 @@ export default function CodingCoursesPage() {
                 Curated video playlists to master coding concepts.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex items-center justify-center p-8">
-              <div className="text-center text-muted-foreground">
-                <Video className="mx-auto h-12 w-12" />
-                <p className="mt-4">
-                  We are working hard to bring you the best video resources.
-                  Stay tuned!
-                </p>
-              </div>
+            <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="python">
+                  <AccordionTrigger className="text-lg font-semibold">
+                    Python
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="text-center text-muted-foreground p-4">
+                      <p>
+                        Python video courses are coming soon. Stay tuned!
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </CardContent>
           </Card>
         </TabsContent>

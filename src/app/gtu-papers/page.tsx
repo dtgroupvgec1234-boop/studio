@@ -64,6 +64,16 @@ const fAQs = [
       'Explain the principle of operation of a DC motor.',
     ],
   },
+  {
+    subject: 'Elements of Mechanical Engineering',
+    questions: [
+      'State and explain the Zeroth, First, and Second Laws of Thermodynamics.',
+      'Define intensive and extensive properties with examples.',
+      'Explain the working of a 4-stroke petrol engine with a neat P-V diagram.',
+      'Define Stress, Strain, and Young\'s Modulus. Draw a stress-strain curve for a ductile material.',
+      'Explain the difference between ductile and brittle materials.',
+    ],
+  },
 ];
 
 export default function GtuPapersPage() {

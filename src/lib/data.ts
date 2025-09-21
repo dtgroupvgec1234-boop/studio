@@ -516,8 +516,8 @@ export const resources: Resource[] = [
         id: '2',
         title: 'Higher Engineering Mathematics by B.S. Grewal',
         description: 'The quintessential textbook for first-year engineering students.',
-        link: '#',
-        category: 'Textbook',
+        link: 'https://youtube.com/playlist?list=PLEmElI_FgS7UOBPBg_AuAZNvTo_YyPE9r&si=N7f0ZjLbSXNhvz6e',
+        category: 'Video Playlist',
         subject: 'Mathematics'
     },
     {

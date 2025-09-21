@@ -76,13 +76,21 @@ export default function CodingCoursesPage() {
                 Concise notes and cheat sheets for quick reference.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex items-center justify-center p-8">
-              <div className="text-center text-muted-foreground">
-                <NotebookText className="mx-auto h-12 w-12" />
-                <p className="mt-4">
-                  Well-organized coding notes are coming soon to help you study.
-                </p>
-              </div>
+            <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="python-notes">
+                  <AccordionTrigger className="text-lg font-semibold">
+                    Python
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="text-center text-muted-foreground p-4">
+                      <p>
+                        Python notes are coming soon. Stay tuned!
+                      </p>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </CardContent>
           </Card>
         </TabsContent>

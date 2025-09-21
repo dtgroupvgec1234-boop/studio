@@ -21,6 +21,7 @@ const menuItems = [
   { href: "/books", label: "Books" },
   { href: "/notes", label: "Notes" },
   { href: "/gtu-papers", label: "GTU" },
+  { href: "/coding-courses", label: "Coding courses" },
 ];
 
 const toolsMenuItems = [

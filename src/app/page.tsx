@@ -16,6 +16,7 @@ import {
   Notebook,
   ClipboardList,
   BookOpen,
+  Code2,
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -84,6 +85,13 @@ const features = [
     href: '/tools/timetable-generator',
     icon: <Calendar className="size-8 text-primary" />,
     imageId: 'timetable',
+  },
+  {
+    title: 'Coding courses',
+    description: 'Learn to code with our curated courses.',
+    href: '/coding-courses',
+    icon: <Code2 className="size-8 text-primary" />,
+    imageId: 'coding-courses',
   },
 ];
 

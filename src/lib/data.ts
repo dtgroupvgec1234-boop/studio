@@ -572,7 +572,7 @@ export const resources: Resource[] = [
         id: '9',
         title: 'BME by Atul Prakashan',
         description: 'A textbook for Elements of Mechanical Engineering.',
-        link: '#',
+        link: 'https://drive.google.com/file/d/1kuLkdP1NoCHAS5AhLcfG4NnqSlPBXzmO/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Elements of Mechanical Engineering'
     }
@@ -581,6 +581,7 @@ export const resources: Resource[] = [
     
 
     
+
 
 
 

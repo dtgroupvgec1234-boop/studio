@@ -524,8 +524,8 @@ export const resources: Resource[] = [
         id: '3',
         title: 'Khan Academy Physics',
         description: 'Clear and concise explanations of fundamental physics concepts.',
-        link: 'https://www.khanacademy.org/science/physics',
-        category: 'Website',
+        link: 'https://youtube.com/playlist?list=PL1O_shUH1zgVfrG2lDsMWuicLdsxm-Dzz&si=3i3zcjpxpY4f4NtI',
+        category: 'Video Playlist',
         subject: 'Physics'
     },
      {

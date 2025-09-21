@@ -1,6 +1,6 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useEffect, useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { summarizeNotesAction, type NotesSummarizerState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
@@ -16,6 +16,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { FileText, Loader2, Sparkles, Upload } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { toast } from '@/hooks/use-toast';
 
 const initialState: NotesSummarizerState = {};
 
@@ -39,6 +40,15 @@ function SubmitButton() {
 export default function NotesSummarizerPage() {
   const [state, formAction] = useActionState(summarizeNotesAction, initialState);
 
+  useEffect(() => {
+    if (state.noteSaved) {
+      toast({
+        title: 'Note Saved!',
+        description: 'Your note image has been saved to the "Your Notes" page.',
+      });
+    }
+  }, [state.noteSaved]);
+
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <header className="mb-8">
@@ -46,7 +56,7 @@ export default function NotesSummarizerPage() {
           Notes Summarizer
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Upload an image of your notes to get a concise AI-generated summary.
+          Upload an image or PDF of your notes to get a concise AI-generated summary. Uploaded images are automatically saved to your notes.
         </p>
       </header>
 
@@ -54,9 +64,9 @@ export default function NotesSummarizerPage() {
         <form action={formAction}>
           <Card>
             <CardHeader>
-              <CardTitle>Upload Image</CardTitle>
+              <CardTitle>Upload File</CardTitle>
               <CardDescription>
-                Select an image file of your notes.
+                Select an image or a PDF file of your notes.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -68,7 +78,7 @@ export default function NotesSummarizerPage() {
                     </Label>
                     <p className="text-sm">or drag and drop</p>
                 </div>
-                <Input id="file-upload" name="notesImage" type="file" className="sr-only" accept="image/*" />
+                <Input id="file-upload" name="notesFile" type="file" className="sr-only" accept="image/*,application/pdf" />
              </div>
                {state.error && (
                 <p className="text-sm font-medium text-destructive mt-2">{state.error}</p>

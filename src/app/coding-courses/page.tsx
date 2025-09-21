@@ -11,13 +11,15 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs';
-import { Video, NotebookText } from 'lucide-react';
+import { Video, NotebookText, ExternalLink } from 'lucide-react';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default function CodingCoursesPage() {
   return (
@@ -88,10 +90,13 @@ export default function CodingCoursesPage() {
                     Python
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="text-center text-muted-foreground p-4">
-                      <p>
-                        Python notes are coming soon. Stay tuned!
-                      </p>
+                    <div className="text-center p-4">
+                      <Button asChild>
+                        <a href="https://drive.google.com/drive/folders/1bj5Ik5x9emcP7efqMH_x1btIRnUl7SLT" target="_blank" rel="noopener noreferrer">
+                          Open Python Notes
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

@@ -57,10 +57,15 @@ export default function CodingCoursesPage() {
                     Python
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="text-center text-muted-foreground p-4">
-                      <p>
-                        Python video courses are coming soon. Stay tuned!
-                      </p>
+                    <div className="aspect-video">
+                      <iframe
+                        className="w-full h-full rounded-md"
+                        src="https://www.youtube.com/embed/ERCMXc8x7mc"
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

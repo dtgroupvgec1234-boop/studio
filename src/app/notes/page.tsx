@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import { Button } from '@/components/ui/button';
 import { ExternalLink } from 'lucide-react';
-import { bmeNotes } from '@/lib/data';
+import { bmeNotes, beeNotes } from '@/lib/data';
 
 export default function NotesPage() {
   return (
@@ -30,22 +30,60 @@ export default function NotesPage() {
         </p>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Elements of Mechanical Engineering</CardTitle>
-          <CardDescription>
-            Click on a chapter to open the notes.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Accordion type="single" collapsible className="w-full">
-            {bmeNotes.map((note, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-lg font-semibold">
-                  {note.title}
-                </AccordionTrigger>
-                <AccordionContent>
-                  {note.link ? (
+      <div className="space-y-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Elements of Mechanical Engineering</CardTitle>
+            <CardDescription>
+              Click on a chapter to open the notes.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {bmeNotes.map((note, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg font-semibold">
+                    {note.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    {note.link ? (
+                      <div className="text-center p-4">
+                        <Button asChild>
+                          <a href={note.link} target="_blank" rel="noopener noreferrer">
+                            Open Notes for {note.title}
+                            <ExternalLink className="ml-2 h-4 w-4" />
+                          </a>
+                        </Button>
+                      </div>
+                    ) : (
+                      note.content && (
+                          <div className="prose prose-blue max-w-none text-muted-foreground">
+                              <p>{note.content}</p>
+                          </div>
+                      )
+                    )}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Basic Electrical Engineering</CardTitle>
+            <CardDescription>
+              Click on a topic to open the notes.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Accordion type="single" collapsible className="w-full">
+              {beeNotes.map((note, index) => (
+                <AccordionItem key={index} value={`bee-item-${index}`}>
+                  <AccordionTrigger className="text-lg font-semibold">
+                    {note.title}
+                  </AccordionTrigger>
+                  <AccordionContent>
                     <div className="text-center p-4">
                       <Button asChild>
                         <a href={note.link} target="_blank" rel="noopener noreferrer">
@@ -54,19 +92,13 @@ export default function NotesPage() {
                         </a>
                       </Button>
                     </div>
-                  ) : (
-                    note.content && (
-                        <div className="prose prose-blue max-w-none text-muted-foreground">
-                            <p>{note.content}</p>
-                        </div>
-                    )
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </CardContent>
-      </Card>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

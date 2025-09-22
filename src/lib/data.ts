@@ -2,6 +2,7 @@
 
 
 
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -629,6 +630,25 @@ export const bmeNotes = [
   },
 ];
     
+export const beeNotes = [
+  {
+    title: 'AC circuit',
+    link: 'https://drive.google.com/file/d/1ThKiTnKJTMxNxZbvNfoWU5xkaMDYQWsQ/view?usp=drivesdk'
+  },
+  {
+    title: 'DC circuit',
+    link: 'https://drive.google.com/file/d/1TggF11rb0k0Qe71m4DQrp1AbiqJZzULr/view?usp=drivesdk'
+  },
+  {
+    title: 'Three Phase AC current',
+    link: 'https://drive.google.com/file/d/1pKtLyn2dkWfYzKKUwJaZXqXichVyDdcr/view?usp=drivesdk'
+  },
+  {
+    title: 'Single Phase AC circuit',
+    link: 'https://drive.google.com/file/d/1TZ6VXT5nhn3Rxuh1fDDS6vZER9bOuFb4/view?usp=drivesdk'
+  }
+];
+    
 
     
 
@@ -646,6 +666,7 @@ export const bmeNotes = [
     
 
     
+
 
 
 

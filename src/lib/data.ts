@@ -548,7 +548,7 @@ export const resources: Resource[] = [
         id: '6',
         title: 'The C Programming Language by K&R',
         description: 'The classic book on C written by its creators.',
-        link: 'https://vardhaman.org/wp-content/uploads/2021/03/CP.pdf',
+        link: 'https://drive.google.com/drive/folders/1bj5Ik5x9emcP7efqMH_x1btIRnUl7SLT',
         category: 'Textbook',
         subject: 'Programming'
     },
@@ -581,6 +581,7 @@ export const resources: Resource[] = [
     
 
     
+
 
 
 

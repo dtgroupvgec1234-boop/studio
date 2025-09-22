@@ -680,16 +680,20 @@ export const beeNotes = [
 
 export const mathsNotes = [
   {
-    title: 'Differential Calculus',
-    link: '#',
+    title: 'Fourier series',
+    link: 'https://drive.google.com/file/d/1oEQsvZGpG34fWmiXSZZPlsLKGHBfK0XD/view?usp=drivesdk',
   },
   {
-    title: 'Integral Calculus',
-    link: '#',
+    title: 'Indeterminate forms',
+    link: 'https://drive.google.com/file/d/1ZYd-jxyB5HOq_qBOzVd4As_-JuXd4FFD/view?usp=drivesdk',
   },
   {
-    title: 'Matrices',
-    link: '#',
+    title: 'Matrix',
+    link: 'https://drive.google.com/file/d/1A8GNreJchK0MJrIYtEDYIbjmJ74e5JlV/view?usp=drivesdk',
+  },
+  {
+    title: "Taylor's and Maclaurian's series",
+    link: 'https://drive.google.com/file/d/1oGF6Iu_uzy2iciFAv2CXbQAtkOzuMJI2/view?usp=drivesdk',
   },
 ];
     
@@ -716,6 +720,7 @@ export const mathsNotes = [
     
 
     
+
 
 
 

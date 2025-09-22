@@ -541,9 +541,9 @@ export const resources: Resource[] = [
     {
         id: '5',
         title: 'C language by herry',
-        description: 'A vast collection of tutorials, examples, and practice problems for C.',
-        link: 'https://www.geeksforgeeks.org/c-programming-language/',
-        category: 'Website',
+        description: 'A comprehensive video tutorial on C language.',
+        link: 'https://youtu.be/aZb0iu4uGwA?si=8-kXajXwLlrKIuBS',
+        category: 'Video Playlist',
         subject: 'Programming'
     },
     {
@@ -644,3 +644,4 @@ export const bmeNotes = [
     
 
     
+

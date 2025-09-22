@@ -514,6 +514,14 @@ export const resources: Resource[] = [
         subject: 'Mathematics'
     },
     {
+        id: '2',
+        title: 'Engineering Mathematics 1 by Dr. Gajendra Purohit',
+        description: 'A complete playlist covering the syllabus for first-year engineering mathematics.',
+        link: 'https://www.youtube.com/playlist?list=PLU6SqdYcYsfJ29bUa25b-R3t43sA-p4-4',
+        category: 'Video Playlist',
+        subject: 'Mathematics'
+    },
+    {
         id: '3',
         title: 'Khan Academy Physics',
         description: 'Clear and concise explanations of fundamental physics concepts.',
@@ -684,5 +692,6 @@ export const beeNotes = [
     
 
     
+
 
 

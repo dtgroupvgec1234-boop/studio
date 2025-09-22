@@ -3,6 +3,7 @@
 
 
 
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -594,6 +595,14 @@ export const resources: Resource[] = [
             { title: "Chap 12 – Transmission of Motion & Power", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLcv4BoQIsJbzMBFni" },
             { title: "Chap 13 – Important Engineering Materials", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLouP4pNzFV4aOawQbNwNPi" },
         ]
+    },
+    {
+        id: '10',
+        title: 'Basic Electrical Engineering',
+        description: 'A comprehensive textbook covering the fundamentals of electrical engineering, including circuits, machines, and electronics.',
+        link: 'https://gvpce.ac.in/syllabi/BEE%20(3-2-2).pdf',
+        category: 'Textbook',
+        subject: 'Basic Electrical Engineering'
     }
 ]
 
@@ -666,6 +675,7 @@ export const beeNotes = [
     
 
     
+
 
 
 

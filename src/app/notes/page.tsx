@@ -169,40 +169,6 @@ export default function NotesPage() {
       </header>
       <div className="grid gap-8 md:grid-cols-2">
         <div className="space-y-4">
-          <form action={addNoteFormAction} ref={formRef}>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Upload from Device</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-col items-center justify-center space-y-4 rounded-md border-2 border-dashed border-border p-8 text-center">
-                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                    <Upload className="h-12 w-12" />
-                    <Label
-                      htmlFor="file-upload"
-                      className="cursor-pointer font-semibold text-primary hover:underline"
-                    >
-                      Choose file
-                    </Label>
-                    <p className="text-sm">or drag and drop</p>
-                  </div>
-                  <Input
-                    ref={uploadInputRef}
-                    id="file-upload"
-                    name="noteFile"
-                    type="file"
-                    className="sr-only"
-                    accept="image/*"
-                    disabled={isAddNotePending}
-                  />
-                </div>
-              </CardContent>
-              <CardFooter>
-                 <SubmitButton />
-              </CardFooter>
-            </Card>
-          </form>
-
           <form action={handleCaptureAndSave} ref={cameraFormRef}>
             <Card>
               <CardHeader>

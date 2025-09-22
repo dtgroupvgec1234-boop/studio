@@ -510,7 +510,7 @@ export const resources: Resource[] = [
         id: '1',
         title: 'NPTEL Mathematics for Engineers',
         description: 'Comprehensive video lectures covering all major topics in engineering mathematics.',
-        link: 'https://nptel.ac.in/courses/111105121',
+        link: 'https://youtube.com/playlist?list=PLbRMhDVUMngeVrxtbBz-n8HvP8KAWBpI5&si=HrSzozlrqe14XFea',
         category: 'Video Playlist',
         subject: 'Mathematics'
     },
@@ -584,7 +584,7 @@ export const resources: Resource[] = [
             { title: "Chap 5 – Heat Engines", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPI_MzM-hoGLcSBo45WnQtLh" },
             { title: "Chap 6 – Steam Boilers", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPKvHbIDXJ-BnCzghRE7c8bE" },
             { title: "Chap 7 – I.C Engine", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPJUYuOL090cyYiYhyjcUe7X" },
-            { title: "Chap 8 – Pumps", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLEzbzp5_eD012xzgMF9QFQ" },
+            { title: "Chap 8 – Pumps", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLEzbzp_eD012xzgMF9QFQ" },
             { title: "Chap 9 – Air Compressor", link: "https://www.youtube.com/watch?v=ISpoXO_PV84&list=PLgwJf8NK-2e7Fe4vAYDaL0bpseGNhc9on&index=67" },
             { title: "Chap 10 – Refrigeration & Air Conditioner", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLZMucRenH_RXUHH72s6GDP" },
             { title: "Chap 11 – Coupling , Clutches & Brakes", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPIQG1g4dydNdakEInUFcdYL" },

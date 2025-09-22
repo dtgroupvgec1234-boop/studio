@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import {
@@ -35,7 +36,7 @@ function getCategoryIcon(category: Resource["category"]) {
 
 const ResourceCard = ({ resource }: { resource: Resource }) => {
   const cardContent = (
-    <Card className="h-full flex flex-col hover:shadow-lg transition-transform duration-300 hover:-translate-y-1">
+    <Card className="h-full flex flex-col hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105">
       <CardHeader>
         <div className="flex justify-between items-start">
           <div>

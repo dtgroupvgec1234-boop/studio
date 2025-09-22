@@ -570,10 +570,10 @@ export const resources: Resource[] = [
     },
     {
         id: '9',
-        title: 'BME by Atul Prakashan',
-        description: 'A textbook for Elements of Mechanical Engineering.',
-        link: 'https://drive.google.com/file/d/1kuLkdP1NoCHAS5AhLcfG4NnqSlPBXzmO/view?usp=drivesdk',
-        category: 'Textbook',
+        title: 'BME VIDEO RESOURCES',
+        description: 'A video playlist for Elements of Mechanical Engineering.',
+        link: 'https://youtube.com/playlist?list=PL3qvHcrYGy1v7soJ_T3f7jEM31y7l-Mh3&si=jX_4P0ofS2lO5N7G',
+        category: 'Video Playlist',
         subject: 'Elements of Mechanical Engineering'
     }
 ]
@@ -589,3 +589,6 @@ export const resources: Resource[] = [
 
 
 
+
+
+    

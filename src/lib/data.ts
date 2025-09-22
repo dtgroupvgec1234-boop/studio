@@ -677,6 +677,21 @@ export const beeNotes = [
     link: 'https://drive.google.com/file/d/1TZ6VXT5nhn3Rxuh1fDDS6vZER9bOuFb4/view?usp=drivesdk'
   }
 ];
+
+export const mathsNotes = [
+  {
+    title: 'Differential Calculus',
+    link: '#',
+  },
+  {
+    title: 'Integral Calculus',
+    link: '#',
+  },
+  {
+    title: 'Matrices',
+    link: '#',
+  },
+];
     
 
     
@@ -701,6 +716,7 @@ export const beeNotes = [
     
 
     
+
 
 
 

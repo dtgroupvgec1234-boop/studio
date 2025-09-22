@@ -1,5 +1,6 @@
 
 
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -564,7 +565,7 @@ export const resources: Resource[] = [
     },
     {
         id: '8',
-        title: 'BEE video resources',
+        title: 'BEE VIDEO RESOURCES',
         description: 'A video playlist for Basic Electrical Engineering.',
         link: 'https://www.youtube.com/playlist?list=PL_5-i3_Ab2f1hh3a-bBquA5nNA522tXgQ',
         category: 'Video Playlist',
@@ -644,4 +645,5 @@ export const bmeNotes = [
     
 
     
+
 

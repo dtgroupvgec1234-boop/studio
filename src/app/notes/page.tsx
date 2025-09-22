@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useActionState } from 'react';
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from '@/hooks/use-toast';
-import { Upload, Image as ImageIcon, Camera, X, Loader2 } from 'lucide-react';
+import { Upload, Image as ImageIcon, Camera, X, Loader2, RefreshCw } from 'lucide-react';
 import Image from 'next/image';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Label } from '@/components/ui/label';
@@ -23,43 +23,86 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
+import { addNoteAction } from '@/app/actions';
+import { getNotes, type Note } from '@/lib/firebase';
+import { useFormStatus } from 'react-dom';
 
-type Note = {
-  id: string;
-  imageUrl: string;
-};
+function SubmitButton({ isCamera }: { isCamera?: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button type="submit" disabled={pending}>
+      {pending ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          {isCamera ? 'Saving...' : 'Uploading...'}
+        </>
+      ) : isCamera ? (
+        <>
+          <Camera className="mr-2 h-4 w-4" />
+          Capture and Save
+        </>
+      ) : (
+        <>
+          <Upload className="mr-2 h-4 w-4" />
+          Upload and Save
+        </>
+      )}
+    </Button>
+  );
+}
+
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedNote, setSelectedNote] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  
+  const [addNoteState, addNoteFormAction, isAddNotePending] = useActionState(addNoteAction, { success: false });
 
   // Camera state
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(
-    null
-  );
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const uploadInputRef = useRef<HTMLInputElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const cameraFormRef = useRef<HTMLFormElement>(null);
+
+  const fetchNotes = async () => {
+    setIsLoading(true);
+    try {
+      const fetchedNotes = await getNotes();
+      setNotes(fetchedNotes);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Failed to load notes',
+        description: 'There was a problem fetching your notes from the server.',
+      });
+      console.error('Failed to load notes from Firestore', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    try {
-      const savedNotes = localStorage.getItem('notes');
-      if (savedNotes) {
-        setNotes(JSON.parse(savedNotes));
-      }
-    } catch (error) {
-      console.error('Failed to load notes from localStorage', error);
-    }
+    fetchNotes();
   }, []);
-
+  
   useEffect(() => {
-    try {
-      localStorage.setItem('notes', JSON.stringify(notes));
-    } catch (error) {
-      console.error('Failed to save notes to localStorage', error);
+    if (addNoteState.success) {
+      toast({ title: 'Note uploaded!' });
+      fetchNotes();
+      formRef.current?.reset();
+      cameraFormRef.current?.reset();
+    } else if (addNoteState.error) {
+       toast({
+          variant: 'destructive',
+          title: 'Upload failed',
+          description: addNoteState.error,
+        });
     }
-  }, [notes]);
+  }, [addNoteState]);
+
 
   useEffect(() => {
     const getCameraPermission = async () => {
@@ -88,40 +131,8 @@ export default function NotesPage() {
     };
   }, []);
 
-  const fileToDataUrl = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setIsUploading(true);
-      try {
-        const imageUrl = await fileToDataUrl(file);
-        const newNote: Note = { id: Date.now().toString(), imageUrl };
-        setNotes((prevNotes) => [newNote, ...prevNotes]);
-        toast({ title: 'Note uploaded!' });
-      } catch (error) {
-        toast({
-          variant: 'destructive',
-          title: 'Upload failed',
-          description: 'Could not read the file.',
-        });
-      } finally {
-        setIsUploading(false);
-        if(uploadInputRef.current) {
-          uploadInputRef.current.value = '';
-        }
-      }
-    }
-  };
-
-  const handleCapture = async () => {
+  const handleCaptureAndSave = async (formData: FormData) => {
     if (videoRef.current && canvasRef.current) {
       const video = videoRef.current;
       const canvas = canvasRef.current;
@@ -131,13 +142,17 @@ export default function NotesPage() {
       const context = canvas.getContext('2d');
       if (context) {
         context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        const imageUrl = canvas.toDataURL('image/png');
-        const newNote: Note = { id: Date.now().toString(), imageUrl };
-        setNotes((prevNotes) => [newNote, ...prevNotes]);
-        toast({ title: 'Note captured!' });
+        const dataUrl = canvas.toDataURL('image/png');
+        const blob = await (await fetch(dataUrl)).blob();
+        const file = new File([blob], "capture.png", { type: "image/png" });
+        
+        const newFormData = new FormData();
+        newFormData.append('noteFile', file);
+        addNoteFormAction(newFormData);
       }
     }
   };
+
 
   const openNote = (previewUrl: string) => setSelectedNote(previewUrl);
   const closeNote = () => setSelectedNote(null);
@@ -149,19 +164,12 @@ export default function NotesPage() {
           Your Notes
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Upload or capture images of your notes. Data is saved locally in your
-          browser.
+          Upload or capture images of your notes. Data is saved to your secure cloud storage.
         </p>
       </header>
       <div className="grid gap-8 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Add New Notes</CardTitle>
-            <CardDescription>
-              Select image files or use your camera to add new notes.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <div className="space-y-4">
+          <form action={addNoteFormAction} ref={formRef}>
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Upload from Device</CardTitle>
@@ -185,28 +193,17 @@ export default function NotesPage() {
                     type="file"
                     className="sr-only"
                     accept="image/*"
-                    onChange={handleFileUpload}
-                    disabled={isUploading}
+                    disabled={isAddNotePending}
                   />
                 </div>
               </CardContent>
               <CardFooter>
-                 <Button disabled={isUploading}>
-                    {isUploading ? (
-                    <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Uploading...
-                    </>
-                    ) : (
-                    <>
-                        <Upload className="mr-2 h-4 w-4" />
-                        Upload
-                    </>
-                    )}
-                </Button>
+                 <SubmitButton />
               </CardFooter>
             </Card>
+          </form>
 
+          <form action={handleCaptureAndSave} ref={cameraFormRef}>
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg">Camera Capture</CardTitle>
@@ -234,23 +231,31 @@ export default function NotesPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button onClick={handleCapture} disabled={!hasCameraPermission}>
-                  <Camera className="mr-2 h-4 w-4" />
-                  Capture Image
-                </Button>
+                <SubmitButton isCamera />
               </CardFooter>
             </Card>
-          </CardContent>
-        </Card>
+          </form>
+        </div>
         <Card>
           <CardHeader>
-            <CardTitle>Saved Notes</CardTitle>
-            <CardDescription>
-              A preview of your saved notes. Click to view.
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Saved Notes</CardTitle>
+                <CardDescription>
+                  A preview of your saved notes. Click to view.
+                </CardDescription>
+              </div>
+              <Button variant="outline" size="icon" onClick={fetchNotes} disabled={isLoading}>
+                <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
-            {notes.length > 0 ? (
+            {isLoading ? (
+               <div className="flex items-center justify-center h-[300px]">
+                  <Loader2 className="h-12 w-12 animate-spin text-primary" />
+               </div>
+            ) : notes.length > 0 ? (
               <div className="grid grid-cols-2 gap-4">
                 {notes.map((note, index) => (
                   <div key={note.id} className="relative group">

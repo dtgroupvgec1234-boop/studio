@@ -517,9 +517,18 @@ export const resources: Resource[] = [
         id: '2',
         title: 'Engineering mathematics 1',
         description: 'A complete playlist covering the syllabus for first-year engineering mathematics.',
-        link: 'https://www.youtube.com/playlist?list=PLU6SqdYcYsfJ29bUa25b-R3t43sA-p4-4',
         category: 'Video Playlist',
-        subject: 'Mathematics'
+        subject: 'Mathematics',
+        chapters: [
+            { title: "Matrices", link: "https://www.youtube.com/playlist?list=PLhSp9OSVmeyIVQpCt2kwsC1dNVl1GwlVn" },
+            { title: "Fourier Series", link: "https://www.youtube.com/playlist?list=PLHhjkSguZZGSqplksd846t-9NxSRCQ1Fu" },
+            { title: "Taylor and Maclaurin", link: "https://www.youtube.com/playlist?list=PLHhjkSguZZGTPcI1ixViDfox1bMmjr2Qy" },
+            { title: "Indeterminate Forms", link: "https://www.youtube.com/playlist?list=PLHhjkSguZZGT80K6EA02emVUfXW-vxMJp" },
+            { title: "Limits and Continuity", link: "https://www.youtube.com/watch?v=h1Ur6Lw5Fwc" },
+            { title: "Partial Derivatives", link: "https://www.youtube.com/watch?v=HiOFurV3h94&list=PLKS7ZMKnbPrQf7IBhKlsnLXwJRZSDMhun" },
+            { title: "Implicit Function", link: "https://www.youtube.com/watch?v=ib5Y-_GH8qw" },
+            { title: "Euler's Theorem", link: "https://www.youtube.com/watch?v=7NO1Ib8FCgY&list=PLyZkuIOV32m-skr6ZZkSZplo56vfV9Sf1&index=6" }
+        ]
     },
     {
         id: '3',
@@ -692,6 +701,7 @@ export const beeNotes = [
     
 
     
+
 
 
 

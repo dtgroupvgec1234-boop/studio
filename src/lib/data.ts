@@ -1,4 +1,5 @@
 
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -595,29 +596,34 @@ export const resources: Resource[] = [
 
 export const bmeNotes = [
   {
-    title: 'First Law of Thermodynamics',
-    content:
-      'The first law of thermodynamics, also known as the law of conservation of energy, states that energy cannot be created or destroyed in an isolated system. It can only be transformed from one form to another. The total energy of an isolated system remains constant.',
+    title: 'Chapter 1',
+    content: null,
+    link: 'https://drive.google.com/file/d/1B1i9msuryDahPmBgWnnCBtTmu6WvnC4V/view?usp=drivesdk',
   },
   {
-    title: 'Second Law of Thermodynamics',
-    content:
-      'The second law of thermodynamics introduces the concept of entropy. It states that the total entropy of an isolated system can only increase over time. It can remain constant in ideal cases where the system is in a steady state or undergoing a reversible process. This law indicates the direction of natural processes.',
+    title: 'Chapter 2',
+    content: null,
+    link: 'https://drive.google.com/file/d/1B1i9msuryDahPmBgWnnCBtTmu6WvnC4V/view?usp=drivesdk',
   },
   {
-    title: 'Stress and Strain',
-    content:
-      'Stress is the force per unit area within materials that arises from externally applied forces. Strain is the measure of the deformation of the material. It is the ratio of the change in length to the original length. The relationship between stress and strain is described by Hooke\'s Law for elastic materials.',
+    title: 'Chapter 3',
+    content: null,
+    link: 'https://drive.google.com/file/d/1B7RGt5T66co3iWdhAiS2T9PIbebTI-eE/view?usp=drivesdk',
   },
   {
-    title: 'Ductile vs. Brittle Materials',
-    content:
-      'Ductile materials are those that can undergo significant plastic deformation before fracturing. They can be drawn into wires. Examples include mild steel and copper. Brittle materials, on the other hand, show little or no plastic deformation before they break. Examples include cast iron and glass.',
+    title: 'Chapter 4',
+    content: null,
+    link: 'https://drive.google.com/file/d/1EZW2cxOcEma8kdjN64XPzzD2KF5OrShJ/view?usp=drivesdk',
   },
   {
-    title: 'Working of a 4-Stroke Petrol Engine',
-    content:
-      'A 4-stroke petrol engine operates in four strokes: Intake, Compression, Power (or Combustion), and Exhaust. During the intake stroke, the piston moves down, drawing a mixture of fuel and air into the cylinder. In the compression stroke, the piston moves up, compressing the mixture. The power stroke begins when the spark plug ignites the mixture, forcing the piston down. Finally, the exhaust stroke pushes the burnt gases out of the cylinder.',
+    title: 'Chapter 5',
+    content: null,
+    link: 'https://drive.google.com/file/d/1C1Mj6kJwp2YBvCsyOnjyjmEbofIzEvYw/view?usp=drivesdk',
+  },
+  {
+    title: 'Chapter 7',
+    content: null,
+    link: 'https://drive.google.com/file/d/1C1Mj6kJwp2YBvCsyOnjyjmEbofIzEvYw/view?usp=drivesdk',
   },
 ];
     

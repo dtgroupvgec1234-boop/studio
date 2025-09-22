@@ -13,6 +13,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
+import { ExternalLink } from 'lucide-react';
 import { bmeNotes } from '@/lib/data';
 
 export default function NotesPage() {
@@ -32,7 +34,7 @@ export default function NotesPage() {
         <CardHeader>
           <CardTitle>Elements of Mechanical Engineering</CardTitle>
           <CardDescription>
-            Click on a topic to view the explanation.
+            Click on a chapter to open the notes.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -43,9 +45,22 @@ export default function NotesPage() {
                   {note.title}
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="prose prose-blue max-w-none text-muted-foreground">
-                    <p>{note.content}</p>
-                  </div>
+                  {note.link ? (
+                    <div className="text-center p-4">
+                      <Button asChild>
+                        <a href={note.link} target="_blank" rel="noopener noreferrer">
+                          Open Notes for {note.title}
+                          <ExternalLink className="ml-2 h-4 w-4" />
+                        </a>
+                      </Button>
+                    </div>
+                  ) : (
+                    note.content && (
+                        <div className="prose prose-blue max-w-none text-muted-foreground">
+                            <p>{note.content}</p>
+                        </div>
+                    )
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}

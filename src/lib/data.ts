@@ -1,11 +1,4 @@
 
-
-
-
-
-
-
-
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -610,7 +603,7 @@ export const resources: Resource[] = [
         id: '11',
         title: 'Elements of Mechanical Engineering',
         description: 'A complete guide to the fundamentals of mechanical engineering, covering thermodynamics, mechanics, and materials.',
-        link: 'https://www.vssut.ac.in/lecture_notes/lecture1423898284.pdf',
+        link: 'https://drive.google.com/file/d/1kuLkdP1NoCHAS5AhLcfG4NnqSlPBXzmO/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Elements of Mechanical Engineering'
     }
@@ -686,9 +679,4 @@ export const beeNotes = [
 
     
 
-
-
-
-
-
-
+    

@@ -112,7 +112,7 @@ export default function NotesPage() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Saved Notes</CardTitle>
+                <CardTitle>NOTES</CardTitle>
                 <CardDescription>
                   A preview of your saved notes. Click to view.
                 </CardDescription>

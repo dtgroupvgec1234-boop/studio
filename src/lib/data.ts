@@ -593,7 +593,7 @@ export const resources: Resource[] = [
     },
     {
         id: '12',
-        title: 'Higher Engineering Mathematics by B.S. Grewal',
+        title: 'Engineering Mathematics 1',
         description: 'The quintessential textbook for first-year engineering students, covering calculus, algebra, and more.',
         link: '#',
         category: 'Textbook',
@@ -664,6 +664,8 @@ export const beeNotes = [
 
 
 
+
+    
 
     
 

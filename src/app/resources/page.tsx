@@ -89,6 +89,7 @@ const ResourceCard = ({ resource }: { resource: Resource }) => {
 
 
 export default function ResourcesPage() {
+  const videoResources = resources.filter(resource => resource.category !== 'Textbook');
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <header className="mb-8">
@@ -101,7 +102,7 @@ export default function ResourcesPage() {
       </header>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {resources.map((resource) => (
+        {videoResources.map((resource) => (
           <ResourceCard key={resource.id} resource={resource} />
         ))}
       </div>

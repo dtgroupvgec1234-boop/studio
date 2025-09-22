@@ -598,6 +598,14 @@ export const resources: Resource[] = [
         link: 'https://drive.google.com/file/d/12FY2EKfYdiSJHoi-RBD8itffxOohmzzH/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Mathematics'
+    },
+    {
+        id: '13',
+        title: 'Basic Electrical Engineering',
+        description: 'A foundational textbook for understanding electrical circuits, machines, and systems.',
+        link: '#',
+        category: 'Textbook',
+        subject: 'Basic Electrical Engineering'
     }
 ]
 
@@ -676,3 +684,4 @@ export const beeNotes = [
     
 
     
+

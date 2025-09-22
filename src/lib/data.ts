@@ -514,14 +514,6 @@ export const resources: Resource[] = [
         subject: 'Mathematics'
     },
     {
-        id: '2',
-        title: 'Higher Engineering Mathematics by B.S. Grewal',
-        description: 'The quintessential textbook for first-year engineering students.',
-        link: 'https://youtube.com/playlist?list=PLEmElI_FgS7UOBPBg_AuAZNvTo_YyPE9r&si=N7f0ZjLbSXNhvz6e',
-        category: 'Video Playlist',
-        subject: 'Mathematics'
-    },
-    {
         id: '3',
         title: 'Khan Academy Physics',
         description: 'Clear and concise explanations of fundamental physics concepts.',
@@ -539,8 +531,8 @@ export const resources: Resource[] = [
     },
     {
         id: '5',
-        title: 'C language by herry',
-        description: 'A comprehensive video tutorial on C language.',
+        title: 'C Programming Language by CodeWithHarry',
+        description: 'A comprehensive video tutorial on C language, perfect for beginners.',
         link: 'https://youtu.be/aZb0iu4uGwA?si=8-kXajXwLlrKIuBS',
         category: 'Video Playlist',
         subject: 'Programming'
@@ -592,20 +584,20 @@ export const resources: Resource[] = [
         ]
     },
     {
-        id: '10',
-        title: 'Basic Electrical Engineering',
-        description: 'A comprehensive textbook covering the fundamentals of electrical engineering, including circuits, machines, and electronics.',
-        link: 'https://drive.google.com/file/d/1QbjtPIdu96yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
-        category: 'Textbook',
-        subject: 'Basic Electrical Engineering'
-    },
-    {
         id: '11',
         title: 'Elements of Mechanical Engineering',
         description: 'A complete guide to the fundamentals of mechanical engineering, covering thermodynamics, mechanics, and materials.',
         link: 'https://drive.google.com/file/d/1kuLkdP1NoCHAS5AhLcfG4NnqSlPBXzmO/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Elements of Mechanical Engineering'
+    },
+    {
+        id: '12',
+        title: 'Higher Engineering Mathematics by B.S. Grewal',
+        description: 'The quintessential textbook for first-year engineering students, covering calculus, algebra, and more.',
+        link: '#',
+        category: 'Textbook',
+        subject: 'Mathematics'
     }
 ]
 
@@ -672,6 +664,8 @@ export const beeNotes = [
 
 
 
+
+    
 
     
 

@@ -59,14 +59,6 @@ export default function NotesPage() {
   
   const [addNoteState, addNoteFormAction, isAddNotePending] = useActionState(addNoteAction, { success: false });
 
-  // Camera state
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const uploadInputRef = useRef<HTMLInputElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
-  const cameraFormRef = useRef<HTMLFormElement>(null);
-
   const fetchNotes = async () => {
     setIsLoading(true);
     try {
@@ -92,8 +84,6 @@ export default function NotesPage() {
     if (addNoteState.success) {
       toast({ title: 'Note uploaded!' });
       fetchNotes();
-      formRef.current?.reset();
-      cameraFormRef.current?.reset();
     } else if (addNoteState.error) {
        toast({
           variant: 'destructive',
@@ -102,56 +92,6 @@ export default function NotesPage() {
         });
     }
   }, [addNoteState]);
-
-
-  useEffect(() => {
-    const getCameraPermission = async () => {
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        setHasCameraPermission(false);
-        return;
-      }
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        setHasCameraPermission(true);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (error) {
-        console.error('Error accessing camera:', error);
-        setHasCameraPermission(false);
-      }
-    };
-    getCameraPermission();
-    return () => {
-      if (videoRef.current && videoRef.current.srcObject) {
-        (videoRef.current.srcObject as MediaStream)
-          .getTracks()
-          .forEach((track) => track.stop());
-      }
-    };
-  }, []);
-
-
-  const handleCaptureAndSave = async (formData: FormData) => {
-    if (videoRef.current && canvasRef.current) {
-      const video = videoRef.current;
-      const canvas = canvasRef.current;
-
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      const context = canvas.getContext('2d');
-      if (context) {
-        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        const dataUrl = canvas.toDataURL('image/png');
-        const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], "capture.png", { type: "image/png" });
-        
-        const newFormData = new FormData();
-        newFormData.append('noteFile', file);
-        addNoteFormAction(newFormData);
-      }
-    }
-  };
 
 
   const openNote = (previewUrl: string) => setSelectedNote(previewUrl);
@@ -164,45 +104,11 @@ export default function NotesPage() {
           Your Notes
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Upload or capture images of your notes. Data is saved to your secure cloud storage.
+          A gallery of your saved notes.
         </p>
       </header>
-      <div className="grid gap-8 md:grid-cols-2">
-        <div className="space-y-4">
-          <form action={handleCaptureAndSave} ref={cameraFormRef}>
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Camera Capture</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="relative">
-                  <video
-                    ref={videoRef}
-                    className="w-full aspect-video rounded-md bg-secondary"
-                    autoPlay
-                    muted
-                    playsInline
-                  />
-                  <canvas ref={canvasRef} className="hidden" />
-                  {hasCameraPermission === false && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-secondary/80 rounded-md">
-                      <Alert variant="destructive" className="w-auto">
-                        <AlertTitle>Camera Access Required</AlertTitle>
-                        <AlertDescription>
-                          Please allow camera access.
-                        </AlertDescription>
-                      </Alert>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <SubmitButton isCamera />
-              </CardFooter>
-            </Card>
-          </form>
-        </div>
-        <Card>
+      <div className="flex justify-center">
+        <Card className="w-full max-w-4xl">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
@@ -222,7 +128,7 @@ export default function NotesPage() {
                   <Loader2 className="h-12 w-12 animate-spin text-primary" />
                </div>
             ) : notes.length > 0 ? (
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {notes.map((note, index) => (
                   <div key={note.id} className="relative group">
                     <div

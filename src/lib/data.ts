@@ -515,7 +515,7 @@ export const resources: Resource[] = [
     },
     {
         id: '2',
-        title: 'Engineering Mathematics 1 by Dr. Gajendra Purohit',
+        title: 'Engineering mathematics 1',
         description: 'A complete playlist covering the syllabus for first-year engineering mathematics.',
         link: 'https://www.youtube.com/playlist?list=PLU6SqdYcYsfJ29bUa25b-R3t43sA-p4-4',
         category: 'Video Playlist',
@@ -692,6 +692,7 @@ export const beeNotes = [
     
 
     
+
 
 
 

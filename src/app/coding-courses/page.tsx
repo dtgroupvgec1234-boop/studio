@@ -71,23 +71,6 @@ export default function CodingCoursesPage() {
                     </div>
                   </AccordionContent>
                 </AccordionItem>
-                <AccordionItem value="bme">
-                  <AccordionTrigger className="text-lg font-semibold">
-                    BME
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="aspect-video">
-                      <iframe
-                        className="w-full h-full rounded-md"
-                        src="https://www.youtube.com/embed/videoseries?list=PLjk-OqI4WmPLGKI0DtkB7BlIUavGziStI"
-                        title="YouTube video player"
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      ></iframe>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
               </Accordion>
             </CardContent>
           </Card>
@@ -114,18 +97,6 @@ export default function CodingCoursesPage() {
                           <ExternalLink className="ml-2 h-4 w-4" />
                         </a>
                       </Button>
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-                <AccordionItem value="bme-notes">
-                  <AccordionTrigger className="text-lg font-semibold">
-                    BME Notes
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="text-center p-4">
-                      <p className="text-muted-foreground">
-                        BME notes will be available soon.
-                      </p>
                     </div>
                   </AccordionContent>
                 </AccordionItem>

@@ -540,7 +540,7 @@ export const resources: Resource[] = [
     },
     {
         id: '5',
-        title: 'GeeksforGeeks C Programming',
+        title: 'C language by herry',
         description: 'A vast collection of tutorials, examples, and practice problems for C.',
         link: 'https://www.geeksforgeeks.org/c-programming-language/',
         category: 'Website',

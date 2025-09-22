@@ -4,6 +4,7 @@
 
 
 
+
 export type SyllabusSubject = {
   id: string;
   name: string;
@@ -600,7 +601,7 @@ export const resources: Resource[] = [
         id: '10',
         title: 'Basic Electrical Engineering',
         description: 'A comprehensive textbook covering the fundamentals of electrical engineering, including circuits, machines, and electronics.',
-        link: 'https://gvpce.ac.in/syllabi/BEE%20(3-2-2).pdf',
+        link: 'https://drive.google.com/file/d/1QbjtPIdu96yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Basic Electrical Engineering'
     }
@@ -675,6 +676,7 @@ export const beeNotes = [
     
 
     
+
 
 
 

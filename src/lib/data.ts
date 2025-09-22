@@ -595,7 +595,7 @@ export const resources: Resource[] = [
         id: '12',
         title: 'Engineering Mathematics 1',
         description: 'The quintessential textbook for first-year engineering students, covering calculus, algebra, and more.',
-        link: '#',
+        link: 'https://drive.google.com/file/d/12FY2EKfYdiSJHoi-RBD8itffxOohmzzH/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Mathematics'
     }

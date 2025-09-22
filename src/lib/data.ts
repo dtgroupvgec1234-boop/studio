@@ -489,7 +489,8 @@ export type Resource = {
     id: string;
     title: string;
     description: string;
-    link: string;
+    link?: string;
+    chapters?: { title: string; link: string }[];
     category: 'Website' | 'Textbook' | 'Video Playlist';
     subject: string;
 }
@@ -572,9 +573,23 @@ export const resources: Resource[] = [
         id: '9',
         title: 'BME VIDEO RESOURCES',
         description: 'A video playlist for Elements of Mechanical Engineering.',
-        link: 'https://youtube.com/playlist?list=PL3qvHcrYGy1v7soJ_T3f7jEM31y7l-Mh3&si=jX_4P0ofS2lO5N7G',
         category: 'Video Playlist',
-        subject: 'Elements of Mechanical Engineering'
+        subject: 'Elements of Mechanical Engineering',
+        chapters: [
+            { title: "Chap 1 – Introduction", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLGKI0DtkB7BlIUavGziStI" },
+            { title: "Chap 2 – Energy", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPIObt2ismt37_H1m9H7W2Tz" },
+            { title: "Chap 3 – Properties of Gases", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPJk64JSbLKuZ749L11ieCMx" },
+            { title: "Chap 4 – Properties of Steam", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPJiEypQHAO41YdsZLwEON-a" },
+            { title: "Chap 5 – Heat Engines", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPI_MzM-hoGLcSBo45WnQtLh" },
+            { title: "Chap 6 – Steam Boilers", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPKvHbIDXJ-BnCzghRE7c8bE" },
+            { title: "Chap 7 – I.C Engine", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPJUYuOL090cyYiYhyjcUe7X" },
+            { title: "Chap 8 – Pumps", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLEzbzp5_eD012xzgMF9QFQ" },
+            { title: "Chap 9 – Air Compressor", link: "https://www.youtube.com/watch?v=ISpoXO_PV84&list=PLgwJf8NK-2e7Fe4vAYDaL0bpseGNhc9on&index=67" },
+            { title: "Chap 10 – Refrigeration & Air Conditioner", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLZMucRenH_RXUHH72s6GDP" },
+            { title: "Chap 11 – Coupling , Clutches & Brakes", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPIQG1g4dydNdakEInUFcdYL" },
+            { title: "Chap 12 – Transmission of Motion & Power", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLcv4BoQIsJbzMBFni" },
+            { title: "Chap 13 – Important Engineering Materials", link: "https://youtube.com/playlist?list=PLjk-OqI4WmPLouP4pNzFV4aOawQbNwNPi" },
+        ]
     }
 ]
 
@@ -590,5 +605,7 @@ export const resources: Resource[] = [
 
 
 
+
+    
 
     

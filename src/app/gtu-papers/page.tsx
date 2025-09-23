@@ -35,7 +35,7 @@ const gtuBook = {
 const gtuSolutions = {
   title: 'GTU PYQs Solutions',
   description: 'Find solved previous year question papers for various subjects.',
-  link: '#',
+  link: 'https://gtustudy.in/gtu-paper-solution/',
   category: 'Website',
   subject: 'All Subjects',
 };

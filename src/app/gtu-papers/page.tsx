@@ -23,6 +23,15 @@ const gtuPapers = {
   subject: 'All Subjects',
 };
 
+const gtuBook = {
+  title: 'GTU Books',
+  description:
+    'Find recommended books and materials for various GTU subjects and semesters.',
+  link: 'https://www.gtu.ac.in/circulars.aspx',
+  category: 'Website',
+  subject: 'All Subjects',
+};
+
 const fAQs = [
   {
     subject: 'Engineering Mathematics I & II',
@@ -88,7 +97,7 @@ export default function GtuPapersPage() {
       </header>
 
       <div className="space-y-8">
-        <div className="max-w-2xl mx-auto">
+        <div className="grid gap-6 md:grid-cols-2">
           <a
             href={gtuPapers.link}
             target="_blank"
@@ -117,6 +126,38 @@ export default function GtuPapersPage() {
                 </CardDescription>
                 <div className="mt-4">
                   <Badge variant="secondary">{gtuPapers.subject}</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </a>
+          <a
+            href={gtuBook.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block transition-transform duration-300 hover:-translate-y-1"
+          >
+            <Card className="h-full flex flex-col hover:shadow-lg">
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="font-headline text-2xl leading-snug">
+                      {gtuBook.title}
+                    </CardTitle>
+                    <div className="flex items-center gap-2 mt-2">
+                      <p className="text-sm text-muted-foreground">
+                        {gtuBook.category}
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="h-6 w-6 text-muted-foreground shrink-0" />
+                </div>
+              </CardHeader>
+              <CardContent className="flex-grow flex flex-col justify-between">
+                <CardDescription className="text-base">
+                  {gtuBook.description}
+                </CardDescription>
+                <div className="mt-4">
+                  <Badge variant="secondary">{gtuBook.subject}</Badge>
                 </div>
               </CardContent>
             </Card>

@@ -15,9 +15,9 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight } from 'lucide-react';
 
 const gtuPapers = {
-  title: 'GTU Old Question Papers',
+  title: 'GTU PYQs Papers',
   description:
-    'A collection of previous year question papers for all first-year subjects.',
+    'Access a comprehensive collection of previous year question papers for all first-year subjects.',
   link: 'https://gtustudy.in/',
   category: 'Website',
   subject: 'All Subjects',
@@ -80,9 +80,9 @@ export default function GtuPapersPage() {
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
       <header className="mb-8">
-        <h1 className="text-4xl font-bold font-headline text-primary">GTU</h1>
+        <h1 className="text-4xl font-bold font-headline text-primary">GTU Papers</h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Access a comprehensive archive of past question papers and frequently
+          Access previous year question papers (PYQs) and frequently
           asked questions.
         </p>
       </header>

@@ -18,7 +18,7 @@ const gtuPapers = {
   title: 'GTU PYQs Papers',
   description:
     'Access a comprehensive collection of previous year question papers for all first-year subjects.',
-  link: 'https://gtustudy.in/',
+  link: 'https://gtustudy.in/gtu-old-papers/',
   category: 'Website',
   subject: 'All Subjects',
 };

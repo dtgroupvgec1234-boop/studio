@@ -27,7 +27,7 @@ const gtuBook = {
   title: 'GTU Books',
   description:
     'Find recommended books and materials for various GTU subjects and semesters.',
-  link: 'https://www.gtu.ac.in/circulars.aspx',
+  link: 'https://gtustudy.in/gtu-1st-year-books-study-material/',
   category: 'Website',
   subject: 'All Subjects',
 };

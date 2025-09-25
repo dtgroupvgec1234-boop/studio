@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import {googleAI} from '@genkit-ai/googleai';
 import {z} from 'genkit';
 
 const SummarizeNotesInputSchema = z.object({
@@ -23,7 +24,7 @@ export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 const SummarizeNotesOutputSchema = z.object({
   summary: z.string().describe('The concise summary of the notes.'),
 });
-export type SummarizeNotesOutput = z.infer<typeof SummarizeNotesOutputSchema>;
+export type SummarizeNotesOutput = z_infer<typeof SummarizeNotesOutputSchema>;
 
 export async function summarizeNotes(input: SummarizeNotesInput): Promise<SummarizeNotesOutput> {
   return summarizeNotesFlow(input);
@@ -33,6 +34,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeNotesPrompt',
   input: {schema: SummarizeNotesInputSchema},
   output: {schema: SummarizeNotesOutputSchema},
+  model: googleAI('gemini-1.5-flash-latest'),
   prompt: `You are an expert summarizer, able to create concise summaries of provided notes from an image.
 
   Please provide a concise summary of the notes in the following image:

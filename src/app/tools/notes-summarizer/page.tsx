@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useActionState, useRef, useState } from 'react';
+import { useEffect, useActionState, useRef } from 'react';
 import { useFormStatus } from 'react-dom';
 import { summarizeNotesAction, type NotesSummarizerState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { FileText, Loader2, Sparkles, Upload } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { FileText, Loader2, Sparkles } from 'lucide-react';
+import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
 
 const initialState: NotesSummarizerState = {};
@@ -40,14 +39,11 @@ function SubmitButton() {
 
 export default function NotesSummarizerPage() {
   const [state, formAction] = useActionState(summarizeNotesAction, initialState);
-  const [fileName, setFileName] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (state.summary) {
         formRef.current?.reset();
-        setFileName(null);
     }
     if (state.noteSaved) {
       toast({
@@ -57,13 +53,6 @@ export default function NotesSummarizerPage() {
     }
   }, [state.summary, state.noteSaved]);
   
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFileName(e.target.files[0].name);
-    } else {
-      setFileName(null);
-    }
-  };
 
   return (
     <div className="container mx-auto p-4 md:p-6 lg:p-8">
@@ -72,7 +61,7 @@ export default function NotesSummarizerPage() {
           Notes Summarizer
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Upload an image or PDF of your notes to get a concise AI-generated summary. Uploaded images are automatically saved to your notes.
+          Enter your notes text below to get a concise AI-generated summary.
         </p>
       </header>
 
@@ -80,22 +69,17 @@ export default function NotesSummarizerPage() {
         <form action={formAction} ref={formRef}>
           <Card>
             <CardHeader>
-              <CardTitle>Upload Notes</CardTitle>
+              <CardTitle>Enter Your Notes</CardTitle>
               <CardDescription>
-                When you upload a photo, it will be sent to Gemini to generate a summary in the AI Summary section.
+                When you enter your notes, they will be sent to Gemini to generate a summary in the AI Summary section.
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center space-y-4 rounded-md border-2 border-dashed border-border p-8 text-center">
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                    <Upload className="h-12 w-12" />
-                    <Label htmlFor="file-upload" className="cursor-pointer font-semibold text-primary hover:underline">
-                        {fileName || 'Choose file'}
-                    </Label>
-                    <p className="text-sm">{fileName ? ' ' : 'or drag and drop'}</p>
-                </div>
-                <Input ref={fileInputRef} id="file-upload" name="notesFile" type="file" className="sr-only" accept="image/*,application/pdf" onChange={handleFileChange} />
-             </div>
+              <Textarea 
+                name="notesText"
+                placeholder="Paste your notes here..."
+                className="h-48"
+              />
                {state.error && (
                 <p className="text-sm font-medium text-destructive mt-2">{state.error}</p>
               )}

@@ -1,3 +1,4 @@
+
 'use server';
 
 import { addBook, uploadFile, addNote as addNoteToDb } from '@/lib/firebase';
@@ -77,19 +78,11 @@ export type NotesSummarizerState = {
 };
 
 const summarizeNotesSchema = z.object({
-  notesFile: z
-    .instanceof(File)
-    .refine((file) => file.size > 0, { message: 'A file is required.' })
-    .refine(
-      (file) => file.type.startsWith('image/') || file.type === 'application/pdf',
-      {
-        message: 'Only image and PDF files are allowed.',
-      }
-    ),
+  notesText: z.string().min(1, 'Notes text is required.'),
 });
 export async function summarizeNotesAction(prevState: NotesSummarizerState, formData: FormData): Promise<NotesSummarizerState> {
   const validatedFields = summarizeNotesSchema.safeParse({
-    notesFile: formData.get('notesFile'),
+    notesText: formData.get('notesText'),
   });
 
   if (!validatedFields.success) {
@@ -101,26 +94,11 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
   }
 
   try {
-    const { notesFile } = validatedFields.data;
-
-    const buffer = await notesFile.arrayBuffer();
-    const dataURI = `data:${notesFile.type};base64,${Buffer.from(
-      buffer
-    ).toString('base64')}`;
-
-    const input: SummarizeNotesInput = { notes: dataURI };
+    const { notesText } = validatedFields.data;
+    const input: SummarizeNotesInput = { notes: notesText };
     const { summary } = await summarizeNotes(input);
     
-    let noteSaved = false;
-    // Only save the note if it's an image.
-    if (notesFile.type.startsWith('image/')) {
-        const { downloadUrl } = await uploadFile(notesFile, 'notes');
-        await addNoteToDb({ imageUrl: downloadUrl, createdAt: new Date() });
-        revalidatePath('/notes');
-        noteSaved = true;
-    }
-
-    return { summary, noteSaved };
+    return { summary };
   } catch (e) {
     console.error('Error in summarizeNotesAction:', e);
     const errorMessage =

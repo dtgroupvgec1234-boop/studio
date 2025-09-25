@@ -108,61 +108,6 @@ export default function ImportantQuestionsPage() {
         </p>
       </header>
 
-      <div className="grid gap-8 md:grid-cols-2">
-        <form action={formAction}>
-          <Card>
-            <CardHeader>
-              <CardTitle>Course Material</CardTitle>
-              <CardDescription>
-                Paste a section of your course material to identify key questions.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                name="material"
-                placeholder="Paste course material here..."
-                className="min-h-[300px] text-base"
-                defaultValue={state.input}
-              />
-              {state.error && (
-                <p className="text-sm font-medium text-destructive mt-2">{state.error}</p>
-              )}
-            </CardContent>
-            <CardFooter>
-              <SubmitButton />
-            </CardFooter>
-          </Card>
-        </form>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>AI Generated Questions</CardTitle>
-            <CardDescription>
-              Potential exam questions will appear here.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {state.questions && state.questions.length > 0 ? (
-              <Alert>
-                <Lightbulb className="h-4 w-4" />
-                <AlertTitle className="font-headline">Key Questions</AlertTitle>
-                <AlertDescription>
-                  <ul className="list-decimal list-inside space-y-2 mt-2">
-                    {state.questions.map((q, i) => (
-                      <li key={i}>{q}</li>
-                    ))}
-                  </ul>
-                </AlertDescription>
-              </Alert>
-            ) : (
-              <div className="flex items-center justify-center h-[300px] border-dashed border-2 rounded-md bg-secondary/50">
-                <p className="text-muted-foreground">Waiting for material to analyze...</p>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-
        <Card className="mt-8">
           <CardHeader>
             <CardTitle>Frequently Asked Questions (GTU Sem 1 & 2)</CardTitle>

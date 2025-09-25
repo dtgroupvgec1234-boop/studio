@@ -112,6 +112,7 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
     const { summary } = await summarizeNotes(input);
     
     let noteSaved = false;
+    // Only save the note if it's an image.
     if (notesFile.type.startsWith('image/')) {
         const { downloadUrl } = await uploadFile(notesFile, 'notes');
         await addNoteToDb({ imageUrl: downloadUrl, createdAt: new Date() });
@@ -119,10 +120,9 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
         noteSaved = true;
     }
 
-
     return { summary, noteSaved };
   } catch (e) {
-    console.error(e);
+    console.error('Error in summarizeNotesAction:', e);
     const errorMessage =
       e instanceof Error ? e.message : 'An unknown error occurred during summarization.';
     return { error: errorMessage };

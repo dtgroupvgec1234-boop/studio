@@ -24,7 +24,7 @@ export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 const SummarizeNotesOutputSchema = z.object({
   summary: z.string().describe('The concise summary of the notes.'),
 });
-export type SummarizeNotesOutput = z_infer<typeof SummarizeNotesOutputSchema>;
+export type SummarizeNotesOutput = z.infer<typeof SummarizeNotesOutputSchema>;
 
 export async function summarizeNotes(input: SummarizeNotesInput): Promise<SummarizeNotesOutput> {
   return summarizeNotesFlow(input);
@@ -70,6 +70,9 @@ const summarizeNotesFlow = ai.defineFlow(
   },
   async input => {
     const {output} = await prompt(input);
-    return output!;
+    if (!output) {
+      throw new Error('No output from AI model');
+    }
+    return output;
   }
 );

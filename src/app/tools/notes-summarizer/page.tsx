@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useActionState } from 'react';
@@ -64,9 +65,9 @@ export default function NotesSummarizerPage() {
         <form action={formAction}>
           <Card>
             <CardHeader>
-              <CardTitle>Upload File</CardTitle>
+              <CardTitle>Upload Notes</CardTitle>
               <CardDescription>
-                Select an image or a PDF file of your notes.
+                When you upload a photo of your notes, a summary will be generated.
               </CardDescription>
             </CardHeader>
             <CardContent>

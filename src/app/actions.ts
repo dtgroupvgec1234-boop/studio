@@ -114,7 +114,7 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
     let noteSaved = false;
     if (notesFile.type.startsWith('image/')) {
         const { downloadUrl } = await uploadFile(notesFile, 'notes');
-        await addNoteToDb({ imageUrl: downloadUrl });
+        await addNoteToDb({ imageUrl: downloadUrl, createdAt: new Date() });
         revalidatePath('/notes');
         noteSaved = true;
     }
@@ -122,8 +122,9 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
 
     return { summary, noteSaved };
   } catch (e) {
+    console.error(e);
     const errorMessage =
-      e instanceof Error ? e.message : 'An unknown error occurred.';
+      e instanceof Error ? e.message : 'An unknown error occurred during summarization.';
     return { error: errorMessage };
   }
 }
@@ -199,7 +200,7 @@ export async function addNoteAction(
   try {
     const { noteFile } = validatedFields.data;
     const { downloadUrl } = await uploadFile(noteFile, 'notes');
-    await addNoteToDb({ imageUrl: downloadUrl });
+    await addNoteToDb({ imageUrl: downloadUrl, createdAt: new Date() });
     revalidatePath('/notes');
     return { success: true };
   } catch (e) {

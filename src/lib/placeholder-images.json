@@ -21,13 +21,13 @@
     {
       "id": "notes",
       "description": "A person writing in a notebook",
-      "imageUrl": "https://images.unsplash.com/photo-1517842645767-c639042777db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxOb3Rlc3xlbnwwfHx8fDE3NTgyNzU0NDl8MA&ixlib  .rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1517842645767-c639042777db?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxOb3Rlc3xlbnwwfHx8fDE3NTg4MDU2MzN8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "writing notes"
     },
     {
       "id": "summarizer",
       "description": "A document with highlighted key points, representing a note summarizer",
-      "imageUrl": "https://picsum.photos/seed/summarizer/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1649918986217-640fc7a54e0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxzdW1tYXJ5JTIwbm90ZXN8ZW58MHx8fHwxNzU4ODA1Njc4fDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "summary notes"
     },
     {

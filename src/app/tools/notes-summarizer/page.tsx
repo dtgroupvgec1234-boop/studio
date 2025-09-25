@@ -71,7 +71,7 @@ export default function NotesSummarizerPage() {
             <CardHeader>
               <CardTitle>Enter Your Notes</CardTitle>
               <CardDescription>
-                When you enter your notes, they will be sent to Gemini to generate a summary in the AI Summary section.
+                When you enter your notes, they will be sent to Gemini to generate a topic summary in the AI Summary section.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -92,9 +92,9 @@ export default function NotesSummarizerPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>AI Summary</CardTitle>
+            <CardTitle>AI Topic Summary</CardTitle>
             <CardDescription>
-              The key points from your notes will appear here.
+              The key topics from your notes will appear here.
             </CardDescription>
           </CardHeader>
           <CardContent>

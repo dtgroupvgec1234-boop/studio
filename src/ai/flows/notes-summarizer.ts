@@ -23,7 +23,7 @@ const SummarizeNotesInputSchema = z.object({
 export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 
 const SummarizeNotesOutputSchema = z.object({
-  summary: z.string().describe('The concise summary of the notes.'),
+  summary: z.string().describe('The concise topic summary of the notes.'),
 });
 export type SummarizeNotesOutput = z.infer<typeof SummarizeNotesOutputSchema>;
 
@@ -39,9 +39,9 @@ const prompt = ai.definePrompt({
     format: 'json',
   },
   model: googleAI('gemini-1.5-flash-latest'),
-  prompt: `You are an expert summarizer, able to create concise summaries of provided text.
+  prompt: `You are an expert summarizer, able to create concise topic summaries of provided text.
 
-  Please provide a concise summary of the notes provided. Respond with a JSON object that matches the provided schema.
+  Please provide a concise topic summary of the notes provided. Respond with a JSON object that matches the provided schema.
 
   Notes: 
   {{notes}}`,

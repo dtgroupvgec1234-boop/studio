@@ -249,6 +249,81 @@ export const quizzes: Quiz[] = [
         options: ["cos(x)", "-sin(x)", "-cos(x)", "tan(x)"],
         correctAnswer: "cos(x)",
       },
+      {
+        question: "The determinant of a 2x2 matrix [[a, b], [c, d]] is:",
+        options: ["ad - bc", "ac - bd", "ab - cd", "ad + bc"],
+        correctAnswer: "ad - bc",
+      },
+      {
+        question: "What is the value of ∫(0 to π/2) sin(x) dx?",
+        options: ["1", "0", "-1", "2"],
+        correctAnswer: "1",
+      },
+      {
+        question: "If A is a 3x3 matrix and det(A) = 2, what is det(2A)?",
+        options: ["16", "8", "4", "2"],
+        correctAnswer: "16",
+      },
+      {
+        question: "The Maclaurin series is a special case of the Taylor series centered at:",
+        options: ["x = 0", "x = 1", "x = a", "x = -1"],
+        correctAnswer: "x = 0",
+      },
+      {
+        question: "A matrix A is symmetric if:",
+        options: ["A = A^T", "A = -A^T", "A = A^-1", "A is a square matrix"],
+        correctAnswer: "A = A^T",
+      },
+      {
+        question: "The Gamma function Γ(n) is defined as:",
+        options: ["(n-1)!", "n!", "(n+1)!", "n"],
+        correctAnswer: "(n-1)!",
+      },
+      {
+        question: "L'Hospital's Rule is used to evaluate limits that are in:",
+        options: ["Indeterminate forms", "Determinate forms", "All forms", "Fractional forms"],
+        correctAnswer: "Indeterminate forms",
+      },
+      {
+        question: "The trace of a square matrix is the:",
+        options: ["Sum of its diagonal elements", "Product of its diagonal elements", "Sum of all its elements", "Determinant of the matrix"],
+        correctAnswer: "Sum of its diagonal elements",
+      },
+      {
+        question: "Which theorem connects differentiation and integration?",
+        options: ["Fundamental Theorem of Calculus", "Mean Value Theorem", "Rolle's Theorem", "Cayley-Hamilton Theorem"],
+        correctAnswer: "Fundamental Theorem of Calculus",
+      },
+      {
+        question: "A system of linear equations AX = B is consistent if:",
+        options: ["It has at least one solution", "It has no solution", "It has a unique solution", "The determinant of A is zero"],
+        correctAnswer: "It has at least one solution",
+      },
+      {
+        question: "The partial derivative ∂f/∂x treats which variable as a constant?",
+        options: ["y", "x", "z", "all of the above"],
+        correctAnswer: "y",
+      },
+      {
+        question: "The order of a differential equation is the:",
+        options: ["Highest derivative in the equation", "Highest power of the dependent variable", "Number of terms", "Number of variables"],
+        correctAnswer: "Highest derivative in the equation",
+      },
+      {
+        question: "What is the area of a circle with radius r?",
+        options: ["πr²", "2πr", "πr", "2πr²"],
+        correctAnswer: "πr²",
+      },
+      {
+        question: "A set of vectors is linearly independent if:",
+        options: ["No vector can be written as a linear combination of the others", "All vectors are orthogonal", "All vectors are unit vectors", "The set includes the zero vector"],
+        correctAnswer: "No vector can be written as a linear combination of the others",
+      },
+      {
+        question: "The rank of a matrix is the number of:",
+        options: ["Linearly independent rows or columns", "Rows", "Columns", "Elements"],
+        correctAnswer: "Linearly independent rows or columns",
+      },
     ],
   },
   {
@@ -304,6 +379,81 @@ export const quizzes: Quiz[] = [
         question: "The specific charge of an electron is:",
         options: ["1.6 x 10^-19 C", "9.1 x 10^-31 kg", "1.76 x 10^11 C/kg", "6.022 x 10^23"],
         correctAnswer: "1.76 x 10^11 C/kg",
+      },
+      {
+        question: "What is the escape velocity of Earth?",
+        options: ["11.2 km/s", "9.8 m/s²", "1.67 km/s", "2.38 km/s"],
+        correctAnswer: "11.2 km/s",
+      },
+      {
+        question: "A mirage is caused by:",
+        options: ["Total internal reflection", "Diffraction", "Interference", "Polarization"],
+        correctAnswer: "Total internal reflection",
+      },
+      {
+        question: "Which color of light has the longest wavelength?",
+        options: ["Red", "Violet", "Green", "Blue"],
+        correctAnswer: "Red",
+      },
+      {
+        question: "The momentum of a photon is given by:",
+        options: ["h/λ", "hλ", "hc/λ", "λ/h"],
+        correctAnswer: "h/λ",
+      },
+      {
+        question: "In a semiconductor, the forbidden energy gap is:",
+        options: ["Small", "Large", "Zero", "Infinite"],
+        correctAnswer: "Small",
+      },
+      {
+        question: "The working of an optical fiber is based on:",
+        options: ["Total Internal Reflection", "Refraction", "Diffraction", "Scattering"],
+        correctAnswer: "Total Internal Reflection",
+      },
+      {
+        question: "A black body is a perfect:",
+        options: ["Absorber and emitter", "Reflector", "Transmitter", "Diffractor"],
+        correctAnswer: "Absorber and emitter",
+      },
+      {
+        question: "The force acting on a charged particle in a magnetic field is called:",
+        options: ["Lorentz force", "Gravitational force", "Nuclear force", "Coulomb force"],
+        correctAnswer: "Lorentz force",
+      },
+      {
+        question: "The photoelectric effect demonstrates the:",
+        options: ["Particle nature of light", "Wave nature of light", "Dual nature of light", "Electromagnetic nature of light"],
+        correctAnswer: "Particle nature of light",
+      },
+      {
+        question: "The unit of magnetic field strength is:",
+        options: ["Tesla", "Weber", "Henry", "Farad"],
+        correctAnswer: "Tesla",
+      },
+      {
+        question: "What is the principle behind a transformer?",
+        options: ["Mutual induction", "Self-induction", "Electromagnetic induction", "Static induction"],
+        correctAnswer: "Mutual induction",
+      },
+      {
+        question: "Which of the following is not an electromagnetic wave?",
+        options: ["Sound waves", "X-rays", "Gamma rays", "Radio waves"],
+        correctAnswer: "Sound waves",
+      },
+      {
+        question: 'The "audible range" of sound frequency for humans is:',
+        options: ["20 Hz to 20,000 Hz", "10 Hz to 10,000 Hz", "Below 20 Hz", "Above 20,000 Hz"],
+        correctAnswer: "20 Hz to 20,000 Hz",
+      },
+      {
+        question: "What is the function of a rectifier?",
+        options: ["Convert AC to DC", "Convert DC to AC", "Amplify the signal", "Store charge"],
+        correctAnswer: "Convert AC to DC",
+      },
+      {
+        question: "The resistance of a superconductor is:",
+        options: ["Zero", "Infinite", "Very high", "Depends on temperature"],
+        correctAnswer: "Zero",
       },
     ],
   },
@@ -361,6 +511,81 @@ export const quizzes: Quiz[] = [
         options: ["struct", "union", "typedef", "enum"],
         correctAnswer: "struct",
       },
+      {
+        question: "What will be the output of `printf(\"%d\", sizeof(int));` on a 32-bit system?",
+        options: ["4", "2", "8", "Depends on the compiler"],
+        correctAnswer: "4",
+      },
+      {
+        question: "The `break` statement is used to exit from a:",
+        options: ["Loop or switch statement", "Function", "Program", "Header file"],
+        correctAnswer: "Loop or switch statement",
+      },
+      {
+        question: "What is the purpose of the `continue` statement in C?",
+        options: ["Skip the current iteration and proceed to the next", "Exit the loop", "Go to a specific label", "Stop the program"],
+        correctAnswer: "Skip the current iteration and proceed to the next",
+      },
+      {
+        question: "In C, what is the correct syntax for a for loop?",
+        options: ["for(initialization; condition; increment/decrement)", "for(condition; initialization; increment/decrement)", "for(initialization; increment/decrement; condition)", "for(increment/decrement; condition; initialization)"],
+        correctAnswer: "for(initialization; condition; increment/decrement)",
+      },
+      {
+        question: "Which of the following is a logical operator in C?",
+        options: ["&&", "&", "|", "||"],
+        correctAnswer: "&&",
+      },
+      {
+        question: "A function that calls itself is known as a:",
+        options: ["Recursive function", "System function", "Library function", "User-defined function"],
+        correctAnswer: "Recursive function",
+      },
+      {
+        question: "What is the format specifier for a floating-point number in C?",
+        options: ["%f", "%d", "%c", "%s"],
+        correctAnswer: "%f",
+      },
+      {
+        question: "The `strcmp()` function is used to:",
+        options: ["Compare two strings", "Copy one string to another", "Find the length of a string", "Concatenate two strings"],
+        correctAnswer: "Compare two strings",
+      },
+      {
+        question: "An array is a collection of:",
+        options: ["Elements of the same data type", "Elements of different data types", "Functions", "Pointers"],
+        correctAnswer: "Elements of the same data type",
+      },
+      {
+        question: "What does the `->` operator do in C?",
+        options: ["Accesses a member of a structure through a pointer", "Dereferences a pointer", "Creates a pointer", "Compares two pointers"],
+        correctAnswer: "Accesses a member of a structure through a pointer",
+      },
+      {
+        question: "Which keyword is used to define a block of code with a name?",
+        options: ["function", "sub", "void", "It's not directly possible"],
+        correctAnswer: "function",
+      },
+      {
+        question: "What is the value of `EOF`?",
+        options: ["-1", "0", "1", "A special character"],
+        correctAnswer: "-1",
+      },
+      {
+        question: "Which data type would you use to store a single character?",
+        options: ["char", "int", "string", "float"],
+        correctAnswer: "char",
+      },
+      {
+        question: "The `do-while` loop checks the condition at the:",
+        options: ["End of the loop", "Beginning of the loop", "Middle of the loop", "Compiler's discretion"],
+        correctAnswer: "End of the loop",
+      },
+      {
+        question: "What is the purpose of `typedef` in C?",
+        options: ["To create an alias for a data type", "To define a new variable", "To define a constant", "To include a header file"],
+        correctAnswer: "To create an alias for a data type",
+      },
     ],
   },
   {
@@ -417,6 +642,81 @@ export const quizzes: Quiz[] = [
         question: "What does a capacitor store?",
         options: ["Current", "Voltage", "Charge", "Resistance"],
         correctAnswer: "Charge",
+      },
+      {
+        question: "What is the unit of capacitance?",
+        options: ["Farad", "Henry", "Ohm", "Siemens"],
+        correctAnswer: "Farad",
+      },
+      {
+        question: "Thevenin's theorem simplifies a complex circuit into a:",
+        options: ["Voltage source and series resistor", "Current source and parallel resistor", "Voltage source and parallel resistor", "Current source and series resistor"],
+        correctAnswer: "Voltage source and series resistor",
+      },
+      {
+        question: "In a series RLC circuit, resonance occurs when:",
+        options: ["XL = XC", "R = XL", "R = XC", "XL > XC"],
+        correctAnswer: "XL = XC",
+      },
+      {
+        question: "The purpose of a fuse in a circuit is to:",
+        options: ["Protect against overcurrent", "Increase the voltage", "Decrease the current", "Store energy"],
+        correctAnswer: "Protect against overcurrent",
+      },
+      {
+        question: "Which of the following is a passive component?",
+        options: ["Resistor", "Transistor", "Diode", "Operational Amplifier"],
+        correctAnswer: "Resistor",
+      },
+      {
+        question: "The flow of electrons is called:",
+        options: ["Current", "Voltage", "Resistance", "Power"],
+        correctAnswer: "Current",
+      },
+      {
+        question: "A step-up transformer increases:",
+        options: ["Voltage", "Current", "Power", "Frequency"],
+        correctAnswer: "Voltage",
+      },
+      {
+        question: "What is the SI unit of electric charge?",
+        options: ["Coulomb", "Ampere", "Volt", "Joule"],
+        correctAnswer: "Coulomb",
+      },
+      {
+        question: "What does an ammeter measure?",
+        options: ["Current", "Voltage", "Resistance", "Power"],
+        correctAnswer: "Current",
+      },
+      {
+        question: "In a parallel circuit, which quantity remains the same across all components?",
+        options: ["Voltage", "Current", "Resistance", "Power"],
+        correctAnswer: "Voltage",
+      },
+      {
+        question: "A DC motor converts:",
+        options: ["Electrical energy to mechanical energy", "Mechanical energy to electrical energy", "AC to DC", "DC to AC"],
+        correctAnswer: "Electrical energy to mechanical energy",
+      },
+      {
+        question: "Which law is also known as the law of conservation of energy for electrical circuits?",
+        options: ["Kirchhoff's Voltage Law (KVL)", "Kirchhoff's Current Law (KCL)", "Ohm's Law", "Faraday's Law"],
+        correctAnswer: "Kirchhoff's Voltage Law (KVL)",
+      },
+      {
+        question: "The slip of a three-phase induction motor is:",
+        options: ["(Ns - Nr) / Ns", "(Nr - Ns) / Ns", "Ns / Nr", "Nr / Ns"],
+        correctAnswer: "(Ns - Nr) / Ns",
+      },
+      {
+        question: "What is the function of a commutator in a DC machine?",
+        options: ["To convert AC to DC or vice-versa", "To provide starting torque", "To reduce losses", "To control speed"],
+        correctAnswer: "To convert AC to DC or vice-versa",
+      },
+      {
+        question: "Admittance is the reciprocal of:",
+        options: ["Impedance", "Resistance", "Reactance", "Conductance"],
+        correctAnswer: "Impedance",
       },
     ],
   },
@@ -479,6 +779,81 @@ export const quizzes: Quiz[] = [
         question: "Which material is known for its high carbon content and brittleness?",
         options: ["Mild Steel", "Aluminum", "Cast Iron", "Copper"],
         correctAnswer: "Cast Iron",
+      },
+      {
+        question: "The First Law of Thermodynamics is a statement of:",
+        options: ["Conservation of energy", "Conservation of mass", "Conservation of momentum", "Conservation of charge"],
+        correctAnswer: "Conservation of energy",
+      },
+      {
+        question: "A property that depends on the amount of matter in a system is called:",
+        options: ["Extensive property", "Intensive property", "Specific property", "Physical property"],
+        correctAnswer: "Extensive property",
+      },
+      {
+        question: "What is the process called when heat is added at constant volume?",
+        options: ["Isochoric process", "Isobaric process", "Isothermal process", "Adiabatic process"],
+        correctAnswer: "Isochoric process",
+      },
+      {
+        question: "The working fluid in a steam power plant is:",
+        options: ["Water", "Air", "Refrigerant", "Gasoline"],
+        correctAnswer: "Water",
+      },
+      {
+        question: "The stress-strain curve for a brittle material typically lacks a:",
+        options: ["Yield point", "Ultimate tensile strength", "Fracture point", "Elastic region"],
+        correctAnswer: "Yield point",
+      },
+      {
+        question: "Varignon's theorem is related to:",
+        options: ["Moments of forces", "Equilibrium of forces", "Friction", "Thermodynamics"],
+        correctAnswer: "Moments of forces",
+      },
+      {
+        question: "The efficiency of a 4-stroke engine is generally ____ than a 2-stroke engine.",
+        options: ["Higher", "Lower", "The same", "Depends on the fuel"],
+        correctAnswer: "Higher",
+      },
+      {
+        question: "The main function of a clutch is to:",
+        options: ["Connect and disconnect the engine from the transmission", "Change gears", "Brake the vehicle", "Steer the vehicle"],
+        correctAnswer: "Connect and disconnect the engine from the transmission",
+      },
+      {
+        question: "Which of the following is a type of gear?",
+        options: ["Spur gear", "V-belt", "Chain", "Pulley"],
+        correctAnswer: "Spur gear",
+      },
+      {
+        question: "A refrigeration cycle works by:",
+        options: ["Transferring heat from a low-temperature region to a high-temperature region", "Transferring heat from a high-temperature region to a low-temperature region", "Creating heat", "Destroying heat"],
+        correctAnswer: "Transferring heat from a low-temperature region to a high-temperature region",
+      },
+      {
+        question: 'The "Triple Point" of a substance is the condition at which:',
+        options: ["Solid, liquid, and vapor phases coexist in equilibrium", "Only liquid and vapor coexist", "Only solid and liquid coexist", "The substance becomes a plasma"],
+        correctAnswer: "Solid, liquid, and vapor phases coexist in equilibrium",
+      },
+      {
+        question: "What is the purpose of a boiler?",
+        options: ["To generate steam", "To cool water", "To compress air", "To expand gas"],
+        correctAnswer: "To generate steam",
+      },
+      {
+        question: "Young's Modulus is a measure of a material's:",
+        options: ["Stiffness", "Strength", "Ductility", "Hardness"],
+        correctAnswer: "Stiffness",
+      },
+      {
+        question: "Which of the following is a renewable energy source?",
+        options: ["Solar energy", "Coal", "Natural gas", "Petroleum"],
+        correctAnswer: "Solar energy",
+      },
+      {
+        question: "The term \"I.C. Engine\" stands for:",
+        options: ["Internal Combustion Engine", "Integrated Circuit Engine", "Ideal Carnot Engine", "International Combustion Engine"],
+        correctAnswer: "Internal Combustion Engine",
       },
     ],
   },
@@ -620,7 +995,7 @@ export const resources: Resource[] = [
         id: '13',
         title: 'Basic Electrical Engineering',
         description: 'A foundational textbook for understanding electrical circuits, machines, and systems.',
-        link: 'https://drive.google.com/file/d/1QbjtPIdu96yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
+        link: 'https://drive.google.com/file/d/1QbjtPIdu9yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Basic Electrical Engineering'
     }
@@ -720,6 +1095,9 @@ export const mathsNotes = [
     
 
     
+
+
+
 
 
 

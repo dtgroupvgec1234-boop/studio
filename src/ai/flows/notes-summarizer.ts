@@ -33,11 +33,14 @@ export async function summarizeNotes(input: SummarizeNotesInput): Promise<Summar
 const prompt = ai.definePrompt({
   name: 'summarizeNotesPrompt',
   input: {schema: SummarizeNotesInputSchema},
-  output: {schema: SummarizeNotesOutputSchema},
+  output: {
+    schema: SummarizeNotesOutputSchema,
+    format: 'json',
+  },
   model: googleAI('gemini-1.5-flash-latest'),
   prompt: `You are an expert summarizer, able to create concise summaries of provided notes from an image.
 
-  Please provide a concise summary of the notes in the following image:
+  Please provide a concise summary of the notes in the following image. Respond with a JSON object that matches the provided schema.
 
   Notes: {{media url=notes}}`,
   config: {

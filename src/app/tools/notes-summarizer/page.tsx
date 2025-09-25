@@ -67,7 +67,7 @@ export default function NotesSummarizerPage() {
             <CardHeader>
               <CardTitle>Upload Notes</CardTitle>
               <CardDescription>
-                When you upload a photo of your notes, a summary will be generated.
+                When you upload a photo, it will be sent to Gemini to generate a summary in the AI Summary section.
               </CardDescription>
             </CardHeader>
             <CardContent>

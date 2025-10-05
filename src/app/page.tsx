@@ -170,6 +170,9 @@ export default function Home() {
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
                   This website was created by :
                 </p>
+                <p className="mx-auto max-w-[700px] text-accent-foreground md:text-xl font-semibold">
+                  CHIRAG BHADARAKA, HET BORADA, RUDRA BALDHA, LASHKARI DENISH
+                </p>
               </div>
             </div>
           </div>

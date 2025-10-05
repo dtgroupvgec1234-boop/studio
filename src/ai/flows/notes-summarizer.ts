@@ -27,10 +27,9 @@ const SummarizeNotesInputSchema = z.object({
 });
 export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 
-const SummarizeNotesOutputSchema = z.object({
-  summary: z.string().describe('The concise topic summary of the notes.'),
-});
+export const SummarizeNotesOutputSchema = z.string().describe('The concise topic summary of the notes.');
 export type SummarizeNotesOutput = z.infer<typeof SummarizeNotesOutputSchema>;
+
 
 export async function summarizeNotes(input: SummarizeNotesInput): Promise<SummarizeNotesOutput> {
   return summarizeNotesFlow(input);
@@ -40,13 +39,12 @@ const prompt = ai.definePrompt({
   name: 'summarizeNotesPrompt',
   input: {schema: SummarizeNotesInputSchema},
   output: {
-    schema: SummarizeNotesOutputSchema,
-    format: 'json',
+    format: 'text',
   },
   model: googleAI('gemini-1.5-flash-latest'),
   prompt: `You are an expert summarizer, able to create concise topic summaries of provided text or text from an image.
 
-  Please provide a concise topic summary of the notes provided.
+  Please provide a concise topic summary of the notes provided. Return only the summary text, and nothing else.
   {{#if notes}}
   The notes are provided as text.
   Notes:
@@ -57,8 +55,6 @@ const prompt = ai.definePrompt({
   The notes are provided as an image. Extract the text from the image and summarize it.
   Photo: {{media url=photoDataUri}}
   {{/if}}
-
-  Respond with a JSON object that matches the provided schema.
   `,
   config: {
     safetySettings: [

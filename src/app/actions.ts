@@ -113,9 +113,9 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
         return { error: 'Please enter some notes or upload a file to summarize.' };
     }
 
-    const { summary } = await summarizeNotes(input);
+    const summaryText = await summarizeNotes(input);
     
-    return { summary };
+    return { summary: summaryText };
   } catch (e) {
     console.error('Error in summarizeNotesAction:', e);
     const errorMessage =

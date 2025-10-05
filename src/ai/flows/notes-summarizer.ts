@@ -27,22 +27,13 @@ const SummarizeNotesInputSchema = z.object({
 });
 export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 
-export const SummarizeNotesOutputSchema = z.string().describe('The concise topic summary of the notes.');
+const SummarizeNotesOutputSchema = z.string().describe('The concise topic summary of the notes.');
 export type SummarizeNotesOutput = z.infer<typeof SummarizeNotesOutputSchema>;
 
 
 export async function summarizeNotes(input: SummarizeNotesInput): Promise<SummarizeNotesOutput> {
-  return summarizeNotesFlow(input);
-}
-
-const prompt = ai.definePrompt({
-  name: 'summarizeNotesPrompt',
-  input: {schema: SummarizeNotesInputSchema},
-  output: {
-    format: 'text',
-  },
-  model: googleAI('gemini-1.5-flash-latest'),
-  prompt: `You are an expert summarizer, able to create concise topic summaries of provided text or text from an image.
+  const {output} = await ai.generate({
+    prompt: `You are an expert summarizer, able to create concise topic summaries of provided text or text from an image.
 
   Please provide a concise topic summary of the notes provided. Return only the summary text, and nothing else.
   {{#if notes}}
@@ -56,39 +47,31 @@ const prompt = ai.definePrompt({
   Photo: {{media url=photoDataUri}}
   {{/if}}
   `,
-  config: {
-    safetySettings: [
-      {
-        category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
-        threshold: 'BLOCK_NONE',
-      },
-      {
-        category: 'HARM_CATEGORY_HARASSMENT',
-        threshold: 'BLOCK_NONE',
-      },
-       {
-        category: 'HARM_CATEGORY_HATE_SPEECH',
-        threshold: 'BLOCK_NONE',
-      },
-       {
-        category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
-        threshold: 'BLOCK_NONE',
-      },
-    ],
-  },
-});
-
-const summarizeNotesFlow = ai.defineFlow(
-  {
-    name: 'summarizeNotesFlow',
-    inputSchema: SummarizeNotesInputSchema,
-    outputSchema: SummarizeNotesOutputSchema,
-  },
-  async input => {
-    const {output} = await prompt(input);
-    if (!output) {
-      throw new Error('No output from AI model');
+    model: googleAI('gemini-1.5-flash-latest'),
+    input: input,
+    config: {
+      safetySettings: [
+        {
+          category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+          threshold: 'BLOCK_NONE',
+        },
+        {
+          category: 'HARM_CATEGORY_HARASSMENT',
+          threshold: 'BLOCK_NONE',
+        },
+         {
+          category: 'HARM_CATEGORY_HATE_SPEECH',
+          threshold: 'BLOCK_NONE',
+        },
+         {
+          category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+          threshold: 'BLOCK_NONE',
+        },
+      ],
     }
-    return output;
+  });
+  if (!output) {
+      throw new Error('No output from AI model');
   }
-);
+  return output as SummarizeNotesOutput;
+}

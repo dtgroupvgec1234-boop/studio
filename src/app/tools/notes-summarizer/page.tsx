@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useEffect, useActionState, useRef } from 'react';
+import { useEffect, useActionState, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { summarizeNotesAction, type NotesSummarizerState } from '@/app/actions';
 import { Button } from '@/components/ui/button';
@@ -14,23 +14,25 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { FileText, Loader2, Sparkles } from 'lucide-react';
+import { FileText, Loader2, Sparkles, Upload } from 'lucide-react';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/hooks/use-toast';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 const initialState: NotesSummarizerState = {};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending}>
+    <Button type="submit" disabled={pending} className="w-full">
       {pending ? (
         <>
           <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Summarizing...
         </>
       ) : (
         <>
-          <Sparkles className="mr-2 h-4 w-4" /> Summarize Notes
+          <Sparkles className="mr-2 h-4 w-4" /> Summarize
         </>
       )}
     </Button>
@@ -40,10 +42,13 @@ function SubmitButton() {
 export default function NotesSummarizerPage() {
   const [state, formAction] = useActionState(summarizeNotesAction, initialState);
   const formRef = useRef<HTMLFormElement>(null);
+  const [fileName, setFileName] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (state.summary) {
         formRef.current?.reset();
+        setFileName(null);
     }
     if (state.noteSaved) {
       toast({
@@ -52,6 +57,14 @@ export default function NotesSummarizerPage() {
       });
     }
   }, [state.summary, state.noteSaved]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFileName(e.target.files[0].name);
+    } else {
+      setFileName(null);
+    }
+  };
   
 
   return (
@@ -61,7 +74,7 @@ export default function NotesSummarizerPage() {
           Notes Summarizer
         </h1>
         <p className="text-lg text-muted-foreground mt-2">
-          Enter your notes text below to get a concise AI-generated summary.
+          Paste your notes text below or upload a file to get a concise AI-generated summary.
         </p>
       </header>
 
@@ -69,17 +82,28 @@ export default function NotesSummarizerPage() {
         <form action={formAction} ref={formRef}>
           <Card>
             <CardHeader>
-              <CardTitle>Enter Your Notes</CardTitle>
+              <CardTitle>Enter Your Notes or Upload a File</CardTitle>
               <CardDescription>
-                When you enter your notes, they will be sent to Gemini to generate a topic summary in the AI Summary section.
+                When you enter text or upload a file, it will be sent to Gemini to generate a topic summary.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
               <Textarea 
                 name="notesText"
                 placeholder="Paste your notes here..."
                 className="h-48"
               />
+              <div className="text-center my-2 text-muted-foreground">OR</div>
+              <div className="space-y-2">
+                  <Label htmlFor="file-upload">Upload a File</Label>
+                  <div className="flex items-center justify-center space-x-2 rounded-md border-2 border-dashed border-border p-4 text-center">
+                      <Upload className="h-8 w-8 text-muted-foreground" />
+                      <Label htmlFor="file-upload" className="cursor-pointer font-semibold text-primary hover:underline">
+                          {fileName || 'Choose a file'}
+                      </Label>
+                      <Input ref={fileInputRef} id="file-upload" name="noteFile" type="file" className="sr-only" onChange={handleFileChange} />
+                  </div>
+              </div>
                {state.error && (
                 <p className="text-sm font-medium text-destructive mt-2">{state.error}</p>
               )}

@@ -78,7 +78,7 @@ export type NotesSummarizerState = {
 };
 
 const summarizeNotesSchema = z.object({
-  notesText: z.string().min(1, 'Notes text is required.'),
+  notesText: z.string().optional(),
 });
 export async function summarizeNotesAction(prevState: NotesSummarizerState, formData: FormData): Promise<NotesSummarizerState> {
   const validatedFields = summarizeNotesSchema.safeParse({
@@ -95,6 +95,11 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
 
   try {
     const { notesText } = validatedFields.data;
+    
+    if (!notesText) {
+        return { error: 'Please enter some notes to summarize.' };
+    }
+
     const input: SummarizeNotesInput = { notes: notesText };
     const { summary } = await summarizeNotes(input);
     

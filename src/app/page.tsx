@@ -1,3 +1,4 @@
+
 import {
   Card,
   CardContent,
@@ -155,6 +156,21 @@ export default function Home() {
                   </Card>
                 );
               })}
+            </div>
+          </div>
+        </section>
+
+        <section className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-headline">
+                  About StudyFirst
+                </h2>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                  StudyFirst is a comprehensive platform designed to help first-year engineering students at Gujarat Technological University (GTU) succeed. We provide a wide range of resources, including syllabus details, practice quizzes, video lectures, recommended books, and previous year question papers. Our goal is to make learning more accessible, organized, and efficient for every student.
+                </p>
+              </div>
             </div>
           </div>
         </section>

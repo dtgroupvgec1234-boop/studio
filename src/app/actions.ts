@@ -79,10 +79,39 @@ export type NotesSummarizerState = {
 
 const summarizeNotesSchema = z.object({
   notesText: z.string().optional(),
+  noteFile: z.instanceof(File).optional(),
 });
+
+function fileToDataURI(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+            if (typeof reader.result === 'string') {
+                resolve(reader.result);
+            } else {
+                reject(new Error('Failed to read file as data URI'));
+            }
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+async function fileToGenerativePart(file: File) {
+    const base64String = await file.arrayBuffer().then(buffer => Buffer.from(buffer).toString('base64'));
+    return {
+        inlineData: {
+            data: base64String,
+            mimeType: file.type,
+        },
+    };
+}
+
+
 export async function summarizeNotesAction(prevState: NotesSummarizerState, formData: FormData): Promise<NotesSummarizerState> {
   const validatedFields = summarizeNotesSchema.safeParse({
     notesText: formData.get('notesText'),
+    noteFile: formData.get('noteFile'),
   });
 
   if (!validatedFields.success) {
@@ -94,13 +123,21 @@ export async function summarizeNotesAction(prevState: NotesSummarizerState, form
   }
 
   try {
-    const { notesText } = validatedFields.data;
+    const { notesText, noteFile } = validatedFields.data;
     
-    if (!notesText) {
-        return { error: 'Please enter some notes to summarize.' };
+    let input: SummarizeNotesInput;
+
+    if (noteFile && noteFile.size > 0) {
+        const arrayBuffer = await noteFile.arrayBuffer();
+        const base64 = Buffer.from(arrayBuffer).toString('base64');
+        const dataUri = `data:${noteFile.type};base64,${base64}`;
+        input = { photoDataUri: dataUri };
+    } else if (notesText) {
+        input = { notes: notesText };
+    } else {
+        return { error: 'Please enter some notes or upload a file to summarize.' };
     }
 
-    const input: SummarizeNotesInput = { notes: notesText };
     const { summary } = await summarizeNotes(input);
     
     return { summary };

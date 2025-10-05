@@ -18,7 +18,12 @@ const SummarizeNotesInputSchema = z.object({
     .string()
     .describe(
       "The text of the notes to be summarized."
-    ),
+    ).optional(),
+  photoDataUri: z
+    .string()
+    .describe(
+        "A photo of the notes, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+    ).optional(),
 });
 export type SummarizeNotesInput = z.infer<typeof SummarizeNotesInputSchema>;
 
@@ -39,12 +44,22 @@ const prompt = ai.definePrompt({
     format: 'json',
   },
   model: googleAI('gemini-1.5-flash-latest'),
-  prompt: `You are an expert summarizer, able to create concise topic summaries of provided text.
+  prompt: `You are an expert summarizer, able to create concise topic summaries of provided text or text from an image.
 
-  Please provide a concise topic summary of the notes provided. Respond with a JSON object that matches the provided schema.
+  Please provide a concise topic summary of the notes provided.
+  {{#if notes}}
+  The notes are provided as text.
+  Notes:
+  {{notes}}
+  {{/if}}
 
-  Notes: 
-  {{notes}}`,
+  {{#if photoDataUri}}
+  The notes are provided as an image. Extract the text from the image and summarize it.
+  Photo: {{media url=photoDataUri}}
+  {{/if}}
+
+  Respond with a JSON object that matches the provided schema.
+  `,
   config: {
     safetySettings: [
       {

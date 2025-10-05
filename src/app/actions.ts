@@ -82,31 +82,6 @@ const summarizeNotesSchema = z.object({
   noteFile: z.instanceof(File).optional(),
 });
 
-function fileToDataURI(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            if (typeof reader.result === 'string') {
-                resolve(reader.result);
-            } else {
-                reject(new Error('Failed to read file as data URI'));
-            }
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
-}
-
-async function fileToGenerativePart(file: File) {
-    const base64String = await file.arrayBuffer().then(buffer => Buffer.from(buffer).toString('base64'));
-    return {
-        inlineData: {
-            data: base64String,
-            mimeType: file.type,
-        },
-    };
-}
-
 
 export async function summarizeNotesAction(prevState: NotesSummarizerState, formData: FormData): Promise<NotesSummarizerState> {
   const validatedFields = summarizeNotesSchema.safeParse({

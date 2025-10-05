@@ -168,7 +168,7 @@ export default function Home() {
                   About StudyFirst
                 </h2>
                 <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
-                  StudyFirst is a comprehensive platform designed to help first-year engineering students at Gujarat Technological University (GTU) succeed. We provide a wide range of resources, including syllabus details, practice quizzes, video lectures, recommended books, and previous year question papers. Our goal is to make learning more accessible, organized, and efficient for every student.
+                  This website was created by :
                 </p>
               </div>
             </div>

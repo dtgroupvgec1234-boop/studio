@@ -176,6 +176,9 @@ export default function Home() {
                   <p>3. RUDRA BALDHA</p>
                   <p>4. LASHKARI DENISH</p>
                 </div>
+                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl pt-4">
+                  Contact us: dtgroupvgec1234@gmail.com
+                </p>
               </div>
             </div>
           </div>

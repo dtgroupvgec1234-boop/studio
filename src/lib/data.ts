@@ -995,7 +995,7 @@ export const resources: Resource[] = [
         id: '13',
         title: 'Basic Electrical Engineering',
         description: 'A foundational textbook for understanding electrical circuits, machines, and systems.',
-        link: 'https://drive.google.com/file/d/1QbjtPIdu9yqUOZpCs3Zt1hm11nJGDou/view?usp=drivesdk',
+        link: 'https://drive.google.com/file/d/1NBaAoTH_MUpqQ2feWchwvgptdMRHNAA1/view?usp=drivesdk',
         category: 'Textbook',
         subject: 'Basic Electrical Engineering'
     }
@@ -1095,6 +1095,7 @@ export const mathsNotes = [
     
 
     
+
 
 
 
